@@ -90,7 +90,6 @@ void redBlackTree::deletion( int nr ) {
     int lastMove;
     abstractTree::deletion( root, nodSters, lastMove, nodUltim, nr );
     if ( nodSters != nullptr && nodSters->getCuloare() == 'B' && root != nullptr ) {
-        int ok = 0;
         if ( nodUltim == nullptr )
             redBlackDeletionFix( root );
         else if ( nodUltim->getFiu( lastMove ) == nullptr )
