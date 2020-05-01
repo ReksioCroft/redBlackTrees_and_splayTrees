@@ -44,3 +44,4 @@ void redBlackNode::setFiu(int nrFiu, redBlackNode *nodCurent) {
     else
         fiu2 = nodCurent;
 }
+

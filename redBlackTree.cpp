@@ -25,13 +25,13 @@ void redBlackTree::insert( int nr ) {
             nodNou->getTata()->setFiu( 1, nodNou );
         else
             nodNou->getTata()->setFiu( 2, nodNou );
-        redBlackFix( nodNou );
+        redBlackInsertionFix( nodNou );
     }
 
 }
 
 
-void redBlackTree::redBlackFix( redBlackNode* nodCurent ) {
+void redBlackTree::redBlackInsertionFix( redBlackNode* nodCurent ) {
     while ( nodCurent->getCuloare() == 'R' && ( nodCurent->getTata()->getCuloare() ) == 'R' ) {
         ///intrucat radacina e mereu neagra, suntem siguri ca avem bunic
         if ( nodCurent->getTata()->getTata()->getFiu( 1 ) == nodCurent->getTata() ) {
@@ -77,19 +77,28 @@ void redBlackTree::redBlackFix( redBlackNode* nodCurent ) {
 }
 
 
-void redBlackTree::deletion( int nr ) {}
+void redBlackTree::deletion( int nr ) {
+    redBlackNode* nodUltim;
+    redBlackNode* nodSters;
+    abstractTree::deletion( root, nodSters, nodUltim, nr );
+    if ( nodSters->getCuloare() == 'B' )
+        redBlackDeletionFix( nodUltim );
+    delete nodSters;
+}
+
+
+void redBlackTree::redBlackDeletionFix( redBlackNode* nodCurent ) {
+    while ( nodCurent != root && nodCurent->getCuloare() == 'B' ) {
+        if ( nodCurent->getTata()->getFiu( 1 ) == nodCurent ) {
+            ///daca sunt un fiu stang
+            ///Todo
+        }
+    }
+    nodCurent->setCuloare( 'B' );
+}
 
 
 bool redBlackTree::find( int nr ) {}
-
-
-int redBlackTree::lowerBound( int nr ) {}
-
-
-int redBlackTree::upperBound( int nr ) {}
-
-
-void redBlackTree::printInterval( std::ostream& output, int lowerBound, int uperBound ) {}
 
 
 redBlackTree::~redBlackTree() noexcept {}

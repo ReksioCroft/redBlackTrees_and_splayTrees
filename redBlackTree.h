@@ -8,7 +8,11 @@
 
 class redBlackTree : public abstractTree {
     redBlackNode* root;
-    void redBlackFix(redBlackNode* nodCurent);
+
+    void redBlackInsertionFix( redBlackNode* nodCurent );
+
+    void redBlackDeletionFix( redBlackNode* nodCurent );
+
 public:
     redBlackTree();
 
@@ -20,11 +24,6 @@ public:
 
     bool find( int nr );
 
-    int lowerBound( int nr );
-
-    int upperBound( int nr );
-
-    void printInterval( std::ostream& output, int lowerBound, int uperBound );
 };
 
 
