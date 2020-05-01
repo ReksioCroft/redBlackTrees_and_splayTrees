@@ -12,6 +12,8 @@ redBlackNode::~redBlackNode() {
 
 
 char redBlackNode::getCuloare() {
+    if( this== nullptr)
+        return 'B';
     return *culoare;
 }
 
