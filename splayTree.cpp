@@ -1,7 +1,9 @@
 #include "splayTree.h"
 
 
-splayTree::splayTree() : abstractTree() {}
+splayTree::splayTree() : abstractTree() {
+    root = nullptr;
+}
 
 
 splayTree::~splayTree() {
@@ -19,6 +21,7 @@ void splayTree::insert( int nr ) {
         bstInsert( nodNou );
         splay( nodNou );
     }
+    nrNoduri++;
 }
 
 
@@ -44,10 +47,10 @@ void splayTree::splay( nod* nodCurent ) {
     if ( nodCurent->getTata() == root ) {
         if ( nodCurent->getTata()->getFiu( 1 ) == nodCurent ) {
             ///daca sunt fiul din stanga al radacinii => "Zig Rotation"
-            rotateRight( nodCurent );
+            rotateRight <nod>( root, nodCurent );
         }
         else {
-            rotateLeft( nodCurent );
+            rotateLeft <nod>( root, nodCurent );
             ///daca sunt fiul din dreapta al radacinii => "Zag Rotation"
 
         }
@@ -58,27 +61,26 @@ void splayTree::splay( nod* nodCurent ) {
             ///sunt un fiu stang => Zig-zig sau Zig-zag
             if ( nodTata->getTata()->getFiu( 1 ) == nodTata ) {
                 ///Zig-Zig step
-                rotateRight( nodTata );
-                rotateRight( nodCurent );
+                rotateRight <nod>( root, nodTata );
+                rotateRight <nod>( root, nodCurent );
             }
             else {
                 ///zig-zag
-                rotateRight( nodCurent );
-                rotateLeft( nodCurent );
+                rotateRight <nod>( root, nodCurent );
+                rotateLeft <nod>( root, nodCurent );
             }
 
         }
         else {
             if ( nodTata->getTata()->getFiu( 2 ) == nodTata ) {
                 ///zag-zag
-                rotateLeft( nodTata );
-                rotateLeft( nodCurent );
+                rotateLeft <nod>( root, nodTata );
+                rotateLeft <nod>( root, nodCurent );
             }
             else {
                 ///zag-zig
-                rotateLeft( nodCurent );
-                rotateRight( nodCurent );
-
+                rotateLeft <nod>( root, nodCurent );
+                rotateRight <nod>( root, nodCurent );
             }
         }
         splay( nodCurent );
@@ -132,6 +134,7 @@ void splayTree::deletion( int nr ) {
     nod* nodCurent = findNodeByValue( nr, nodUltim, lowerBound, upperBound );
 
     if ( nodCurent != nullptr ) {
+        nrNoduri--;
         if ( nodCurent->getFiu( 1 ) == nullptr && nodCurent->getFiu( 2 ) == nullptr ) {
             if ( nodCurent == root )
                 root = nodUltim = nullptr;
@@ -236,3 +239,4 @@ void splayTree::printInterval( std::ostream& output, int lowerBound, int upperBo
     interval( output, root, lowerBound, upperBound );
     output << '\n';
 }
+

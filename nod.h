@@ -1,5 +1,5 @@
-#ifndef SPLAYTREES_NOD_H
-#define SPLAYTREES_NOD_H
+#ifndef REDBLACKTREES_SPLAYTREES_NOD_H
+#define REDBLACKTREES_SPLAYTREES_NOD_H
 
 
 class nod {
@@ -22,8 +22,8 @@ public:
 
     int getVal();
 
-    ~nod();
+    virtual ~nod();
 };
 
 
-#endif //SPLAYTREES_NOD_H
+#endif //REDBLACKTREES_SPLAYTREES_NOD_H

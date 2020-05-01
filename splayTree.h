@@ -1,11 +1,13 @@
-#ifndef SPLAYTREES_SPLAYTREE_H
-#define SPLAYTREES_SPLAYTREE_H
+#ifndef REDBLACKTREES_SPLAYTREES_SPLAYTREE_H
+#define REDBLACKTREES_SPLAYTREES_SPLAYTREE_H
 
 
 #include "abstractTree.h"
+#include "nod.h"
 
 
 class splayTree : public abstractTree {
+    nod* root;
 
     void bstInsert( nod* nodNou );
 
@@ -35,4 +37,4 @@ public:
 };
 
 
-#endif //SPLAYTREES_SPLAYTREE_H
+#endif //REDBLACKTREES_SPLAYTREES_SPLAYTREE_H

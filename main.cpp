@@ -9,7 +9,9 @@ int main() {
     splayTree tree;
     fin >> nr;
     for ( i = 0; i < nr; i++ ) {
-        fin >> test >> x;
+        fin >> test;
+        if ( test != 7 )
+            fin >> x;
         if ( test == 1 )
             tree.insert( x );
         else if ( test == 2 )
@@ -20,12 +22,12 @@ int main() {
             fout << tree.lowerBound( x ) << "\n";
         else if ( test == 5 )
             fout << tree.upperBound( x ) << "\n";
-        else {
+        else if ( test == 6 ) {
             fin >> y;
             tree.printInterval( fout, x, y );
         }
-
-
+        else
+            fout << tree.getNrNoduri() << "\n";
     }
     fin.close();
     fout.close();
