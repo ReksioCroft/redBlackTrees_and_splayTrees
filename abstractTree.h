@@ -5,6 +5,7 @@
 #include <iostream>
 #include "nod.h"
 
+
 class abstractTree {
 
 

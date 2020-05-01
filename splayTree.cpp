@@ -1,3 +1,5 @@
+///https://en.wikipedia.org/wiki/Splay_tree
+///http://www.btechsmartclass.com/data_structures/splay-trees.html
 #include "splayTree.h"
 
 
