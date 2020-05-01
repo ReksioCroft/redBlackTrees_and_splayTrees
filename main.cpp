@@ -9,7 +9,7 @@ int main() {
     int nr, test, x, y, i;
     redBlackTree tree;
     fin >> nr;
-    for ( i = 1; i < nr; i++ ) {
+    for ( i = 0; i < nr; i++ ) {
         fin >> test;
         if ( test == 1 )
             fin >> &tree;
