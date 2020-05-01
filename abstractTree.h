@@ -99,26 +99,31 @@ public:
     virtual void insert( int nr ) = 0;
 
 
-    template <class nodType>
-    void deletion( nodType*& root, nodType*& nodCurent, nodType*& nodUltim, int nr ) {
+    template < class nodType >
+    void deletion( nodType*& root, nodType*& nodCurent, int& lastMove, nodType*& nodUltim, int nr ) {
         ///metoda abstracta nu dezaloca memoria pt nodul sters, ci il intoarce prin parametrul nodCurent
         nodType* lowerBound;
         nodType* upperBound;
         nodCurent = findNodeByValue( root, nr, nodUltim, lowerBound, upperBound );
-
+        lastMove = 1;
         if ( nodCurent != nullptr ) {
             nrNoduri--;
             if ( nodCurent->getFiu( 1 ) == nullptr && nodCurent->getFiu( 2 ) == nullptr ) {
                 if ( nodCurent == root )
                     root = nodUltim = nullptr;
                 else {
-                    if ( nodUltim->getFiu( 1 ) == nodCurent )
+                    if ( nodUltim->getFiu( 1 ) == nodCurent ) {
                         nodUltim->setFiu( 1, nullptr );
-                    else
+                        lastMove = 1;
+                    }
+                    else {
                         nodUltim->setFiu( 2, nullptr );
+                        lastMove = 2;
+                    }
                 }
             }
             else if ( nodCurent->getFiu( 1 ) != nullptr && nodCurent->getFiu( 2 ) == nullptr ) {
+                lastMove = 1;
                 if ( nodCurent == root ) {
                     root = nodCurent->getFiu( 1 );
                     nodCurent->getFiu( 1 )->setTata( nullptr );
@@ -133,6 +138,7 @@ public:
                 }
             }
             else if ( nodCurent->getFiu( 2 ) != nullptr && nodCurent->getFiu( 1 ) == nullptr ) {
+                lastMove = 2;
                 if ( nodCurent == root ) {
                     root = nodCurent->getFiu( 2 );
                     nodCurent->getFiu( 2 )->setTata( nullptr );
@@ -148,8 +154,11 @@ public:
             }
             else {
                 nodType* nodAux = nodCurent->getFiu( 2 );
-                while ( nodAux->getFiu( 1 ) != nullptr )
+                lastMove = 2;
+                while ( nodAux->getFiu( 1 ) != nullptr ) {
                     nodAux = nodAux->getFiu( 1 );
+                    lastMove = 1;
+                }
                 nodCurent->setVal( nodAux->getVal() );
                 if ( nodAux->getFiu( 2 ) == nullptr ) {
                     if ( nodAux->getTata()->getFiu( 1 ) == nodAux )
@@ -171,6 +180,7 @@ public:
             }
         }
     }
+
 
     virtual bool find( int nr ) = 0;
 

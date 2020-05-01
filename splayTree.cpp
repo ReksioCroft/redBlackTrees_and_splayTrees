@@ -114,7 +114,8 @@ bool splayTree::find( int nr ) {
 void splayTree::deletion( int nr ) {
     nod* nodSters;
     nod* nodUltim;
-    abstractTree::deletion( root, nodSters, nodUltim, nr );
+    int lastMove;
+    abstractTree::deletion( root, nodSters, lastMove,nodUltim, nr );
     delete nodSters;
     if ( nodUltim != nullptr )
         splay( nodUltim );
