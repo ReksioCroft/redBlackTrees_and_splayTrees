@@ -5,10 +5,13 @@
 #include "nod.h"
 #include <stdexcept>
 
+
 class redBlackNode : public nod {
     char* culoare;
 public:
     redBlackNode( int nr = 0 );
+
+    redBlackNode( redBlackNode* nod2 );
 
     ~redBlackNode();
 
@@ -23,6 +26,8 @@ public:
     redBlackNode* getFiu( int nrFiu );
 
     void setFiu( int nrFiu, redBlackNode* nodCurent );
+
+    redBlackNode& operator=( redBlackNode& nod2 );
 };
 
 

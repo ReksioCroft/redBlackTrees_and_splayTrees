@@ -11,6 +11,8 @@ protected:
 public:
     explicit nod( int nr = 0 );
 
+    nod( nod* nod2 );
+
     nod* getFiu( int nrFiu );
 
     void setFiu( int nrFiu, nod* nodNou );
@@ -24,6 +26,8 @@ public:
     int getVal();
 
     virtual ~nod();
+
+    nod& operator=(nod& nod2);
 };
 
 

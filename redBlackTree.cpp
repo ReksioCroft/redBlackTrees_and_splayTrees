@@ -213,3 +213,45 @@ redBlackTree::~redBlackTree() {
     while ( nrNoduri > 0 )
         deletion( root->getVal() );
 }
+
+
+int redBlackTree::blackHigh() {
+    redBlackNode* nodCurent = root;
+    int co = 0;
+    while ( nodCurent != nullptr ) {    ///intrucat si radacina si frunzele NIL au culoarea neagra,
+        if ( nodCurent->getCuloare() == 'B' )       ///pot numara incepand cu radacina, pana la noduri exclusiv
+            co++;
+        nodCurent = nodCurent->getFiu( 1 );
+    }
+    return co; ///inaltimea neagra e aceeeasi indiferent de traseul ales
+}
+
+
+redBlackTree& redBlackTree::operator=( redBlackTree& tree2 ) {
+    while ( nrNoduri > 0 )
+        deletion( root->getVal() );
+    nrNoduri = tree2.nrNoduri;
+    if ( tree2.root != nullptr ) {
+        redBlackNode* nodNou = new redBlackNode;
+        deepcopy( nodNou, tree2.root );
+    }
+    return *this;
+}
+
+
+void redBlackTree::deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat ) {
+    *nodNou = *nodCopiat;
+    if ( nodCopiat->getFiu( 1 ) != nullptr ) {
+        redBlackNode* nodNou1 = new redBlackNode;
+        deepcopy( nodNou1, nodCopiat->getFiu( 1 ) );
+    }
+    if ( nodCopiat->getFiu( 2 ) != nullptr ) {
+        redBlackNode* nodNou2 = new redBlackNode;
+        deepcopy( nodNou2, nodCopiat->getFiu( 1 ) );
+    }
+}
+
+
+redBlackTree::redBlackTree( redBlackTree& tree2 ) {
+    *this = tree2;
+}

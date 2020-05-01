@@ -3,7 +3,7 @@
 
 
 #include <iostream>
-
+#include "nod.h"
 
 class abstractTree {
 
@@ -215,7 +215,16 @@ public:
 
 
     int getNrNoduri();
+
+    template < class nodType >
+    friend void afis( std::ostream& output, nodType* nod );
+
+    virtual nod* getRoot() = 0;
 };
 
+
+std::istream& operator>>( std::istream& input, abstractTree* tree );
+
+std::ostream& operator<<( std::ostream& output, abstractTree* tree );
 
 #endif //REDBLACKTREES_SPLAYTREES_ABSTRACTTREE_H

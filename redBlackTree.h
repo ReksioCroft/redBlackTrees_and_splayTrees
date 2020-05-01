@@ -9,12 +9,16 @@
 class redBlackTree : public abstractTree {
     redBlackNode* root;
 
+    void deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat );
+
     void redBlackInsertionFix( redBlackNode* nodCurent );
 
     void redBlackDeletionFix( redBlackNode* nodCurent );
 
 public:
     redBlackTree();
+
+    redBlackTree( redBlackTree& tree2 );
 
     ~redBlackTree();
 
@@ -25,6 +29,10 @@ public:
     bool find( int nr );
 
     redBlackNode* getRoot();
+
+    int blackHigh();
+
+    redBlackTree& operator=( redBlackTree& tree2 );
 };
 
 

@@ -9,9 +9,9 @@ int main() {
     int nr, test, x, y, i;
     redBlackTree tree;
     fin >> nr;
-    for ( i = 0; i < nr; i++ ) {
+    for ( i = 1; i < nr; i++ ) {
         fin >> test;
-        if ( test != 7 )
+        if ( test < 7 )
             fin >> x;
         if ( test == 1 )
             tree.insert( x );
@@ -27,9 +27,12 @@ int main() {
             fin >> y;
             tree.printInterval( tree.getRoot(), fout, x, y );
         }
-        else
+        else if ( test == 7 )
             fout << tree.getNrNoduri() << "\n";
+        else
+            fout << tree.blackHigh() << '\n';
     }
+    std::cout<<&tree;
     fin.close();
     fout.close();
     return 0;

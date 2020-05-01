@@ -13,9 +13,12 @@ class splayTree : public abstractTree {
 
     void splay( nod* nodCurent );
 
+    void deepcopy( nod* nodNou, nod* nodCopiat );
 
 public:
     splayTree();
+
+    splayTree(splayTree& tree2);
 
     ~splayTree();
 
@@ -26,6 +29,8 @@ public:
     bool find( int nr );
 
     nod* getRoot();
+
+    splayTree& operator=(splayTree& tree2 );
 };
 
 

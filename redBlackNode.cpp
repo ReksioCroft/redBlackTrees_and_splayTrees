@@ -57,3 +57,13 @@ void redBlackNode::setFiu( int nrFiu, redBlackNode* nodCurent ) {
         fiu2 = nodCurent;
 }
 
+
+redBlackNode& redBlackNode::operator=( redBlackNode& nod2 ) {
+    val = nod2.val;
+    *culoare = *(nod2.culoare);
+    return *this;
+}
+
+redBlackNode::redBlackNode(redBlackNode* nod2) : nod(nod2){
+    culoare = new char(nod2->getCuloare());
+}

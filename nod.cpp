@@ -44,6 +44,18 @@ void nod::setVal( int nr ) {
 }
 
 
+nod::nod( nod* nod2 ) {
+    fiu1 = fiu2 = tata = nullptr;
+    val = nod2->val;
+}
+
+
 int nod::getVal() {
     return val;
+}
+
+
+nod& nod::operator=( nod& nod2 ) {
+    val = nod2.val;
+    return *this;
 }
