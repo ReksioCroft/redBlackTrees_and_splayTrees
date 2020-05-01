@@ -11,8 +11,8 @@ int main() {
     fin >> nr;
     for ( i = 1; i < nr; i++ ) {
         fin >> test;
-        if(test==1)
-            fin>>&tree;
+        if ( test == 1 )
+            fin >> &tree;
         else if ( test < 7 )
             fin >> x;
         if ( test == 2 )
@@ -27,15 +27,15 @@ int main() {
             fin >> y;
             tree.printInterval( tree.getRoot(), fout, x, y );
         }
-      //  else if ( test == 7 )
-         //   fout << tree.getNrNoduri() << "\n";
+        //  else if ( test == 7 )
+        //   fout << tree.getNrNoduri() << "\n";
         //else
-          //  fout << tree.blackHigh() << '\n';
+        //  fout << tree.blackHigh() << '\n';
     }
-    redBlackTree tree1(tree);
+    redBlackTree tree1( tree );
     redBlackTree tree2;
     tree2 = tree1;
-    std::cout<<&tree2;
+    std::cout << &tree2;
     fin.close();
     fout.close();
     return 0;

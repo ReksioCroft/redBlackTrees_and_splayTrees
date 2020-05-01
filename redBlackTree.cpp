@@ -243,14 +243,14 @@ void redBlackTree::deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat ) {
     *nodNou = nodCopiat;
     if ( nodCopiat->getFiu( 1 ) != nullptr ) {
         redBlackNode* nodNou1 = new redBlackNode;
-        nodNou->setFiu(1,nodNou1);
-        nodNou1->setTata(nodNou);
+        nodNou->setFiu( 1, nodNou1 );
+        nodNou1->setTata( nodNou );
         deepcopy( nodNou1, nodCopiat->getFiu( 1 ) );
     }
     if ( nodCopiat->getFiu( 2 ) != nullptr ) {
         redBlackNode* nodNou2 = new redBlackNode;
-        nodNou->setFiu(2,nodNou2);
-        nodNou2->setTata(nodNou);
+        nodNou->setFiu( 2, nodNou2 );
+        nodNou2->setTata( nodNou );
         deepcopy( nodNou2, nodCopiat->getFiu( 2 ) );
     }
 }

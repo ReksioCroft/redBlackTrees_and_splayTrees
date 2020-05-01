@@ -18,7 +18,7 @@ class splayTree : public abstractTree {
 public:
     splayTree();
 
-    splayTree(splayTree& tree2);
+    splayTree( splayTree& tree2 );
 
     ~splayTree();
 
@@ -30,7 +30,7 @@ public:
 
     nod* getRoot();
 
-    splayTree& operator=(splayTree& tree2 );
+    splayTree& operator=( splayTree& tree2 );
 };
 
 

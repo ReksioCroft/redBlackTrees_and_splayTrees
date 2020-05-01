@@ -115,7 +115,7 @@ void splayTree::deletion( int nr ) {
     nod* nodSters;
     nod* nodUltim;
     int lastMove;
-    abstractTree::deletion( root, nodSters, lastMove,nodUltim, nr );
+    abstractTree::deletion( root, nodSters, lastMove, nodUltim, nr );
     delete nodSters;
     if ( nodUltim != nullptr )
         splay( nodUltim );
@@ -135,19 +135,18 @@ splayTree& splayTree::operator=( splayTree& tree2 ) {
 }
 
 
-
 void splayTree::deepcopy( nod* nodNou, nod* nodCopiat ) {
     *nodNou = nodCopiat;
     if ( nodCopiat->getFiu( 1 ) != nullptr ) {
         nod* nodNou1 = new nod;
-        nodNou->setFiu(1,nodNou1);
-        nodNou1->setTata(nodNou);
+        nodNou->setFiu( 1, nodNou1 );
+        nodNou1->setTata( nodNou );
         deepcopy( nodNou1, nodCopiat->getFiu( 1 ) );
     }
     if ( nodCopiat->getFiu( 2 ) != nullptr ) {
         nod* nodNou2 = new nod;
-        nodNou->setFiu(2,nodNou2);
-        nodNou2->setTata(nodNou);
+        nodNou->setFiu( 2, nodNou2 );
+        nodNou2->setTata( nodNou );
         deepcopy( nodNou2, nodCopiat->getFiu( 2 ) );
     }
 }

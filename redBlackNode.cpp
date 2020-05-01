@@ -1,5 +1,6 @@
 #include "redBlackNode.h"
 
+
 redBlackNode::redBlackNode( int nr ) : nod( nr ) {
     culoare = new char( 'R' );
 }
@@ -64,6 +65,7 @@ redBlackNode& redBlackNode::operator=( redBlackNode* nod2 ) {
     return *this;
 }
 
-redBlackNode::redBlackNode(redBlackNode* nod2) : nod(nod2){
-    culoare = new char(nod2->getCuloare());
+
+redBlackNode::redBlackNode( redBlackNode* nod2 ) : nod( nod2 ) {
+    culoare = new char( nod2->getCuloare() );
 }
