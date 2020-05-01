@@ -7,6 +7,7 @@ redBlackTree::redBlackTree() {
 
 
 void redBlackTree::insert( int nr ) {
+    nrNoduri++;
     redBlackNode* nodNou = new redBlackNode( nr );
     if ( root == nullptr ) {
         nodNou->setCuloare( 'B' );
@@ -88,26 +89,16 @@ void redBlackTree::deletion( int nr ) {
     redBlackNode* nodSters;
     int lastMove;
     abstractTree::deletion( root, nodSters, lastMove, nodUltim, nr );
-    if ( nodSters != nullptr && nodSters->getCuloare() == 'B' ) {
+    if ( nodSters != nullptr && nodSters->getCuloare() == 'B' && root != nullptr ) {
         int ok = 0;
-        redBlackNode* nIL = new redBlackNode( -1 );
-        nIL->setCuloare( 'B' );
-        if ( nodUltim->getFiu( lastMove ) == nullptr ) {
-            ok = 1;
-            nodUltim->setFiu( lastMove, nIL );
-            nIL->setTata( nodUltim );
-        }
-        redBlackDeletionFix( nodUltim->getFiu( lastMove ) );
-        if ( ok == 1 ) {
-            if ( nIL->getTata()->getFiu( 1 ) == nIL )
-                nIL->getTata()->setFiu( 1, nullptr );
-            else
-                nIL->getTata()->setFiu( 2, nullptr );
-            delete nIL;
-        }
-        delete nodSters;
+        if ( nodUltim == nullptr )
+            redBlackDeletionFix( root );
+        else if ( nodUltim->getFiu( lastMove ) == nullptr )
+            redBlackDeletionFix( nodUltim );
+        else
+            redBlackDeletionFix( nodUltim->getFiu( lastMove ) );
     }
-
+    delete nodSters;
 }
 
 
@@ -127,28 +118,29 @@ void redBlackTree::redBlackDeletionFix( redBlackNode* nodCurent ) {
                         rotateLeft( root, nodFrate );
                         nodFrate = nodCurent->getTata()->getFiu( 2 );
                     }
-
-                    if ( ( nodFrate->getFiu( 1 ) == nullptr || nodFrate->getFiu( 1 )->getCuloare() == 'B' ) &&
-                         ( nodFrate->getFiu( 2 ) == nullptr || nodFrate->getFiu( 2 )->getCuloare() == 'B' ) ) {
-                        ///fratele meu fiind sigur negru, daca nu are fii rosii, il fac rosu si am scapat
-                        nodFrate->setCuloare( 'R' );
-                        nodCurent->getTata()->setCuloare( 'B' );
-                        nodCurent = nodCurent->getTata();
-                    }
-                    else {
-                        if ( nodFrate->getFiu( 1 ) != nullptr && nodFrate->getFiu( 1 )->getCuloare() == 'R' ) {
-                            nodFrate->getFiu( 1 )->setCuloare( 'B' );
+                    if ( nodFrate != nullptr ) {
+                        if ( ( nodFrate->getFiu( 1 ) == nullptr || nodFrate->getFiu( 1 )->getCuloare() == 'B' ) &&
+                             ( nodFrate->getFiu( 2 ) == nullptr || nodFrate->getFiu( 2 )->getCuloare() == 'B' ) ) {
+                            ///fratele meu fiind sigur negru, daca nu are fii rosii, il fac rosu si am scapat
                             nodFrate->setCuloare( 'R' );
-                            rotateRight( root, nodFrate->getFiu( 1 ) );
+                            nodCurent->getTata()->setCuloare( 'B' );
+                            nodCurent = nodCurent->getTata();
                         }
-                        nodFrate->setCuloare( nodCurent->getTata()->getCuloare() );
-                        nodCurent->getTata()->setCuloare( 'B' );
-                        if ( nodFrate->getFiu( 2 ) != nullptr )
-                            nodFrate->getFiu( 2 )->setCuloare( 'B' );
-                        rotateLeft( root, nodFrate );
-                        nodCurent = root;
-                    }
+                        else {
+                            if ( nodFrate->getFiu( 1 ) != nullptr && nodFrate->getFiu( 1 )->getCuloare() == 'R' ) {
+                                nodFrate->getFiu( 1 )->setCuloare( 'B' );
+                                nodFrate->setCuloare( 'R' );
+                                rotateRight( root, nodFrate->getFiu( 1 ) );
+                            }
+                            nodFrate->setCuloare( nodCurent->getTata()->getCuloare() );
+                            nodCurent->getTata()->setCuloare( 'B' );
+                            if ( nodFrate->getFiu( 2 ) != nullptr )
+                                nodFrate->getFiu( 2 )->setCuloare( 'B' );
+                            rotateLeft( root, nodFrate );
+                            nodCurent = root;
+                        }
 
+                    }
                 }
             }
             else {
@@ -164,26 +156,27 @@ void redBlackTree::redBlackDeletionFix( redBlackNode* nodCurent ) {
                         rotateRight( root, nodFrate );
                         nodFrate = nodCurent->getTata()->getFiu( 1 );
                     }
-
-                    if ( ( nodFrate->getFiu( 1 ) == nullptr || nodFrate->getFiu( 1 )->getCuloare() == 'B' ) &&
-                         ( nodFrate->getFiu( 2 ) == nullptr || nodFrate->getFiu( 2 )->getCuloare() == 'B' ) ) {
-                        ///fratele meu fiind sigur negru, daca nu are fii rosii, il fac rosu si am scapat
-                        nodFrate->setCuloare( 'R' );
-                        nodCurent->getTata()->setCuloare( 'B' );
-                        nodCurent = nodCurent->getTata();
-                    }
-                    else {
-                        if ( nodFrate->getFiu( 2 ) != nullptr && nodFrate->getFiu( 2 )->getCuloare() == 'R' ) {
-                            nodFrate->getFiu( 2 )->setCuloare( 'B' );
+                    if ( nodFrate != nullptr ) {
+                        if ( ( nodFrate->getFiu( 1 ) == nullptr || nodFrate->getFiu( 1 )->getCuloare() == 'B' ) &&
+                             ( nodFrate->getFiu( 2 ) == nullptr || nodFrate->getFiu( 2 )->getCuloare() == 'B' ) ) {
+                            ///fratele meu fiind sigur negru, daca nu are fii rosii, il fac rosu si am scapat
                             nodFrate->setCuloare( 'R' );
-                            rotateLeft( root, nodFrate->getFiu( 2 ) );
+                            nodCurent->getTata()->setCuloare( 'B' );
+                            nodCurent = nodCurent->getTata();
                         }
-                        nodFrate->setCuloare( nodCurent->getTata()->getCuloare() );
-                        nodCurent->getTata()->setCuloare( 'B' );
-                        if ( nodFrate->getFiu( 1 ) != nullptr )
-                            nodFrate->getFiu( 1 )->setCuloare( 'B' );
-                        rotateRight( root, nodFrate );
-                        nodCurent = root;
+                        else {
+                            if ( nodFrate->getFiu( 2 ) != nullptr && nodFrate->getFiu( 2 )->getCuloare() == 'R' ) {
+                                nodFrate->getFiu( 2 )->setCuloare( 'B' );
+                                nodFrate->setCuloare( 'R' );
+                                rotateLeft( root, nodFrate->getFiu( 2 ) );
+                            }
+                            nodFrate->setCuloare( nodCurent->getTata()->getCuloare() );
+                            nodCurent->getTata()->setCuloare( 'B' );
+                            if ( nodFrate->getFiu( 1 ) != nullptr )
+                                nodFrate->getFiu( 1 )->setCuloare( 'B' );
+                            rotateRight( root, nodFrate );
+                            nodCurent = root;
+                        }
                     }
                 }
             }
