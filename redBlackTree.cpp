@@ -33,7 +33,8 @@ void redBlackTree::insert( int nr ) {
 
 void redBlackTree::redBlackInsertionFix( redBlackNode* nodCurent ) {
     try {
-        while ( nodCurent->getCuloare() == 'R' && ( nodCurent->getTata()->getCuloare() ) == 'R' ) {
+        while ( nodCurent != nullptr && nodCurent->getTata() != nullptr &&
+                nodCurent->getCuloare() == 'R' && nodCurent->getTata()->getCuloare() == 'R' ) {
             ///intrucat radacina e mereu neagra, suntem siguri ca avem bunic
             if ( nodCurent->getTata()->getTata()->getFiu( 1 ) == nodCurent->getTata() ) {
                 ///daca tatal meu a fost un fiu stang
@@ -87,21 +88,26 @@ void redBlackTree::deletion( int nr ) {
     redBlackNode* nodSters;
     int lastMove;
     abstractTree::deletion( root, nodSters, lastMove, nodUltim, nr );
-    if ( nodUltim != nullptr && nodSters->getCuloare() == 'B' ) {
+    if ( nodSters != nullptr && nodSters->getCuloare() == 'B' ) {
+        int ok = 0;
         redBlackNode* nIL = new redBlackNode( -1 );
         nIL->setCuloare( 'B' );
         if ( nodUltim->getFiu( lastMove ) == nullptr ) {
+            ok = 1;
             nodUltim->setFiu( lastMove, nIL );
             nIL->setTata( nodUltim );
         }
         redBlackDeletionFix( nodUltim->getFiu( lastMove ) );
-        if(nIL->getTata()->getFiu(1)==nIL)
-            nIL->getTata()->setFiu(1, nullptr);
-        else
-            nIL->getTata()->setFiu(2, nullptr);
-        delete nIL;
+        if ( ok == 1 ) {
+            if ( nIL->getTata()->getFiu( 1 ) == nIL )
+                nIL->getTata()->setFiu( 1, nullptr );
+            else
+                nIL->getTata()->setFiu( 2, nullptr );
+            delete nIL;
+        }
+        delete nodSters;
     }
-    delete nodSters;
+
 }
 
 
