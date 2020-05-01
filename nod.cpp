@@ -55,7 +55,7 @@ int nod::getVal() {
 }
 
 
-nod& nod::operator=( nod& nod2 ) {
-    val = nod2.val;
+nod& nod::operator=( nod* nod2 ) {
+    val = nod2->getVal();
     return *this;
 }

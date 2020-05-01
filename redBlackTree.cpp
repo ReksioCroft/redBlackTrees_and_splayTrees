@@ -233,6 +233,7 @@ redBlackTree& redBlackTree::operator=( redBlackTree& tree2 ) {
     nrNoduri = tree2.nrNoduri;
     if ( tree2.root != nullptr ) {
         redBlackNode* nodNou = new redBlackNode;
+        root = nodNou;
         deepcopy( nodNou, tree2.root );
     }
     return *this;
@@ -240,14 +241,18 @@ redBlackTree& redBlackTree::operator=( redBlackTree& tree2 ) {
 
 
 void redBlackTree::deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat ) {
-    *nodNou = *nodCopiat;
+    *nodNou = nodCopiat;
     if ( nodCopiat->getFiu( 1 ) != nullptr ) {
         redBlackNode* nodNou1 = new redBlackNode;
+        nodNou->setFiu(1,nodNou1);
+        nodNou1->setTata(nodNou);
         deepcopy( nodNou1, nodCopiat->getFiu( 1 ) );
     }
     if ( nodCopiat->getFiu( 2 ) != nullptr ) {
         redBlackNode* nodNou2 = new redBlackNode;
-        deepcopy( nodNou2, nodCopiat->getFiu( 1 ) );
+        nodNou->setFiu(2,nodNou2);
+        nodNou2->setTata(nodNou);
+        deepcopy( nodNou2, nodCopiat->getFiu( 2 ) );
     }
 }
 

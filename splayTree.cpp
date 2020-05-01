@@ -128,21 +128,27 @@ splayTree& splayTree::operator=( splayTree& tree2 ) {
     nrNoduri = tree2.nrNoduri;
     if ( tree2.root != nullptr ) {
         nod* nodNou = new nod;
+        root = nodNou;
         deepcopy( nodNou, tree2.root );
     }
     return *this;
 }
 
 
+
 void splayTree::deepcopy( nod* nodNou, nod* nodCopiat ) {
-    *nodNou = *nodCopiat;
+    *nodNou = nodCopiat;
     if ( nodCopiat->getFiu( 1 ) != nullptr ) {
         nod* nodNou1 = new nod;
+        nodNou->setFiu(1,nodNou1);
+        nodNou1->setTata(nodNou);
         deepcopy( nodNou1, nodCopiat->getFiu( 1 ) );
     }
     if ( nodCopiat->getFiu( 2 ) != nullptr ) {
         nod* nodNou2 = new nod;
-        deepcopy( nodNou2, nodCopiat->getFiu( 1 ) );
+        nodNou->setFiu(2,nodNou2);
+        nodNou2->setTata(nodNou);
+        deepcopy( nodNou2, nodCopiat->getFiu( 2 ) );
     }
 }
 

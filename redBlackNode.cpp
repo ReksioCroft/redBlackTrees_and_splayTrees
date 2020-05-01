@@ -27,7 +27,7 @@ void redBlackNode::setCuloare( char c ) {
 redBlackNode* redBlackNode::getTata() {
     if ( this == nullptr )
         throw std::logic_error( "Ai ajuns sa ceri informatie din neant" );
-    return dynamic_cast<redBlackNode*>(tata);
+    return static_cast<redBlackNode*>(tata);
 }
 
 
@@ -42,9 +42,9 @@ redBlackNode* redBlackNode::getFiu( int nrFiu ) {
     if ( this == nullptr )
         throw std::logic_error( "Ai ajuns sa ceri informatie din neant" );
     if ( nrFiu == 1 )
-        return dynamic_cast<redBlackNode*>(fiu1);
+        return static_cast<redBlackNode*>(fiu1);
     else
-        return dynamic_cast<redBlackNode*>(fiu2);
+        return static_cast<redBlackNode*>(fiu2);
 }
 
 
@@ -58,9 +58,9 @@ void redBlackNode::setFiu( int nrFiu, redBlackNode* nodCurent ) {
 }
 
 
-redBlackNode& redBlackNode::operator=( redBlackNode& nod2 ) {
-    val = nod2.val;
-    *culoare = *(nod2.culoare);
+redBlackNode& redBlackNode::operator=( redBlackNode* nod2 ) {
+    val = nod2->getVal();
+    *culoare = nod2->getCuloare();
     return *this;
 }
 
