@@ -59,13 +59,13 @@ protected:
 
 
 public:
-    virtual void insert( int nr ) = 0;
-
-    virtual void deletion( int nr ) = 0;
+    abstractTree();
 
     virtual ~abstractTree() = 0;
 
-    abstractTree();
+    virtual void insert( int nr ) = 0;
+
+    virtual void deletion( int nr ) = 0;
 
     virtual bool find( int nr ) = 0;
 

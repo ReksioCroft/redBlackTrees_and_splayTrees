@@ -3,6 +3,7 @@
 
 
 class nod {
+protected:
     nod* tata;
     nod* fiu1;
     nod* fiu2;

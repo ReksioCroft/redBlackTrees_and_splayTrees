@@ -1,12 +1,12 @@
 #include <fstream>
 #include "splayTree.h"
-
+#include "redBlackTree.h"
 
 int main() {
     std::ifstream fin( "abce.in" );
     std::ofstream fout( "abce.out" );
     int nr, test, x, y, i;
-    splayTree tree;
+    redBlackTree tree;
     fin >> nr;
     for ( i = 0; i < nr; i++ ) {
         fin >> test;
@@ -14,7 +14,7 @@ int main() {
             fin >> x;
         if ( test == 1 )
             tree.insert( x );
-        else if ( test == 2 )
+        /*else if ( test == 2 )
             tree.deletion( x );
         else if ( test == 3 )
             fout << tree.find( x ) << "\n";
@@ -28,6 +28,7 @@ int main() {
         }
         else
             fout << tree.getNrNoduri() << "\n";
+            */
     }
     fin.close();
     fout.close();

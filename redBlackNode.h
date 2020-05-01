@@ -15,6 +15,14 @@ public:
     char getCuloare();
 
     void setCuloare( char c );
+
+    redBlackNode* getTata();
+
+    void setTata( redBlackNode* nodCurent );
+
+    redBlackNode* getFiu( int nrFiu );
+
+    void setFiu( int nrFiu, redBlackNode* nodCurent );
 };
 
 
