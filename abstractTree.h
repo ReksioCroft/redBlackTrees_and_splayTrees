@@ -176,7 +176,7 @@ public:
 
 
     template < class nodType >
-    int upperBound( nodType*& root, int nr ) {
+    int upperBound( nodType* root, int nr ) {
         nodType* nodCurent;
         nodType* nodUltim;
         nodType* lowerBound;
@@ -187,14 +187,14 @@ public:
 
 
     template < class nodType >
-    void printInterval( nodType*& root, std::ostream& output, int lowerBound, int upperBound ) {
+    void printInterval( nodType* root, std::ostream& output, int lowerBound, int upperBound ) {
         interval( output, root, lowerBound, upperBound );
         output << '\n';
     }
 
 
     template < class nodType >
-    int lowerBound( nodType*& root, int nr ) {
+    int lowerBound( nodType* root, int nr ) {
         nodType* nodCurent;
         nodType* nodUltim;
         nodType* lowerBound;

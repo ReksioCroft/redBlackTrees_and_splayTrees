@@ -24,6 +24,7 @@ public:
 
     bool find( int nr );
 
+    redBlackNode* getRoot();
 };
 
 

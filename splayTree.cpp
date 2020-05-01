@@ -43,6 +43,11 @@ void splayTree::splayInsert( nod* nodNou ) {
 }
 
 
+nod* splayTree::getRoot() {
+    return root;
+}
+
+
 void splayTree::splay( nod* nodCurent ) {
     if ( nodCurent->getTata() == root ) {
         if ( nodCurent->getTata()->getFiu( 1 ) == nodCurent ) {

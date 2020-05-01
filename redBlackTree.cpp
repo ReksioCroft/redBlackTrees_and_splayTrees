@@ -88,17 +88,90 @@ void redBlackTree::deletion( int nr ) {
 
 
 void redBlackTree::redBlackDeletionFix( redBlackNode* nodCurent ) {
-    while ( nodCurent != root && nodCurent->getCuloare() == 'B' ) {
-        if ( nodCurent->getTata()->getFiu( 1 ) == nodCurent ) {
-            ///daca sunt un fiu stang
-            ///Todo
+    try {
+        while ( nodCurent != root && nodCurent->getCuloare() == 'B' ) {
+            if ( nodCurent->getTata()->getFiu( 1 ) == nodCurent ) {
+                ///daca sunt un fiu stang
+                redBlackNode* node = nodCurent->getTata()->getFiu( 2 );
+                if ( node->getCuloare() == 'R' ) {
+                    node->setCuloare( 'B' );
+                    nodCurent->getTata()->setCuloare( 'R' );
+                    rotateLeft( root, node );
+                    node = nodCurent->getTata()->getFiu( 2 );
+                }
+                if ( node->getFiu( 1 )->getCuloare() == 'B' && node->getFiu( 2 )->getCuloare() == 'B' ) {
+                    node->setCuloare( 'R' );
+                    nodCurent = nodCurent->getTata();
+                }
+                else {
+                    if ( node->getFiu( 2 )->getCuloare() == 'B' ) {
+                        node->getFiu( 1 )->setCuloare( 'B' );
+                        node->setCuloare( 'R' );
+                        rotateRight( root, node->getFiu( 1 ) );
+                        node = nodCurent->getTata()->getFiu( 2 );
+                    }
+                    node->setCuloare( nodCurent->getTata()->getCuloare() );
+                    nodCurent->getTata()->setCuloare( 'B' );
+                    node->getFiu( 2 )->setCuloare( 'B' );
+                    rotateLeft( root, nodCurent->getTata()->getFiu( 2 ) );
+                }
+            }
+            else {
+                ///daca sunt un fiu drept
+                redBlackNode* node = nodCurent->getTata()->getFiu( 1 );
+                if ( node->getCuloare() == 'R' ) {
+                    node->setCuloare( 'B' );
+                    nodCurent->getTata()->setCuloare( 'R' );
+                    rotateRight( root, node );
+                    node = nodCurent->getTata()->getFiu( 1 );
+                }
+                if ( node->getFiu( 2 )->getCuloare() == 'B' && node->getFiu( 1 )->getCuloare() == 'B' ) {
+                    node->setCuloare( 'R' );
+                    nodCurent = nodCurent->getTata();
+                }
+                else {
+                    if ( node->getFiu( 1 )->getCuloare() == 'B' ) {
+                        node->getFiu( 2 )->setCuloare( 'B' );
+                        node->setCuloare( 'R' );
+                        rotateLeft( root, node->getFiu( 2 ) );
+                        node = nodCurent->getTata()->getFiu( 1 );
+                    }
+                    node->setCuloare( nodCurent->getTata()->getCuloare() );
+                    nodCurent->getTata()->setCuloare( 'B' );
+                    node->getFiu( 1 )->setCuloare( 'B' );
+                    rotateRight( root, nodCurent->getTata()->getFiu( 1 ) );
+                }
+            }
         }
+        nodCurent->setCuloare( 'B' );
     }
-    nodCurent->setCuloare( 'B' );
+    catch ( ... ) {
+        std::cout << "Something happened:(\n";
+    }
 }
 
 
-bool redBlackTree::find( int nr ) {}
+bool redBlackTree::find( int nr ) {
+    if ( root == nullptr )
+        return false;
+    redBlackNode* nodUltim;
+    redBlackNode* lowerBound;
+    redBlackNode* upperBound;
+    redBlackNode* nodCautat = findNodeByValue( root, nr, nodUltim, lowerBound, upperBound );
+    if ( nodCautat == nullptr )
+        return false;
+    else
+        return true;
+
+}
 
 
-redBlackTree::~redBlackTree() noexcept {}
+redBlackNode* redBlackTree::getRoot() {
+    return root;
+}
+
+
+redBlackTree::~redBlackTree() {
+    while ( nrNoduri > 0 )
+        deletion( root->getVal() );
+}

@@ -24,6 +24,8 @@ public:
     void deletion( int nr );
 
     bool find( int nr );
+
+    nod* getRoot();
 };
 
 
