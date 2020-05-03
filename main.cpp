@@ -12,7 +12,7 @@ int main() {
     for ( i = 0; i < nr; i++ ) {
         fin >> test;
         if ( test == 1 )
-            fin >> &tree;
+            fin >> tree;
         else if ( test < 7 )
             fin >> x;
         if ( test == 2 )
@@ -32,10 +32,16 @@ int main() {
         //else
         //  fout << tree.blackHigh() << '\n';
     }
+    std::cout << tree;
     redBlackTree tree1( tree );
+    std::cout << tree1;
+    while ( tree.getNrNoduri() > 0 )
+        tree.deletion( tree.getRoot()->getVal() );
+    std::cout << tree1;
+    std::cout << tree;
     redBlackTree tree2;
     tree2 = tree1;
-    std::cout << &tree2;
+    std::cout << tree2;
     fin.close();
     fout.close();
     return 0;

@@ -224,8 +224,8 @@ public:
 };
 
 
-std::istream& operator>>( std::istream& input, abstractTree* tree );
+std::istream& operator>>( std::istream& input, abstractTree& tree );
 
-std::ostream& operator<<( std::ostream& output, abstractTree* tree );
+std::ostream& operator<<( std::ostream& output, abstractTree& tree );
 
 #endif //REDBLACKTREES_SPLAYTREES_ABSTRACTTREE_H

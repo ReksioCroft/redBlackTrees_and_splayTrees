@@ -27,15 +27,19 @@ void afis( std::ostream& output, nodType* nod ) {
 }
 
 
-std::istream& operator>>( std::istream& input, abstractTree* tree ) {
+std::istream& operator>>( std::istream& input, abstractTree& tree ) {
     int nr;
     input >> nr;
-    tree->insert( nr );
+    tree.insert( nr );
     return input;
 }
 
 
-std::ostream& operator<<( std::ostream& output, abstractTree* tree ) {
-    afis( output, tree->getRoot() );
+std::ostream& operator<<( std::ostream& output, abstractTree& tree ) {
+    if ( tree.getRoot() != nullptr ) {
+        afis( output, tree.getRoot() );
+        output << "\n";
+    }
+    else output << "Tree gol\n";
     return output;
 }
