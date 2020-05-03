@@ -235,6 +235,8 @@ redBlackTree& redBlackTree::operator=( redBlackTree& tree2 ) {
         root = nodNou;
         deepcopy( nodNou, tree2.root );
     }
+    else
+        root = nullptr;
     return *this;
 }
 
@@ -255,15 +257,21 @@ void redBlackTree::deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat ) {
     }
 }
 
-
+/*
 redBlackTree::redBlackTree( redBlackTree& tree2 ) : abstractTree( tree2 ) {
     if ( tree2.root != nullptr ) {
         redBlackNode* nodNou = new redBlackNode;
         root = nodNou;
         deepcopy( nodNou, tree2.root );
     }
+    else
+        root = nullptr;
 }
+*/
 
+redBlackTree::redBlackTree( redBlackTree& tree2 ) : abstractTree() {
+    *this = tree2;
+}
 
 void redBlackTree::empty() {
     while ( nrNoduri > 0 )

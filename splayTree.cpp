@@ -133,6 +133,8 @@ splayTree& splayTree::operator=( splayTree& tree2 ) {
         root = nodNou;
         deepcopy( nodNou, tree2.root );
     }
+    else
+        root = nullptr;
     return *this;
 }
 

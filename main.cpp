@@ -6,7 +6,7 @@
 int main() {
     std::ifstream fin( "abce.in" );
     std::ofstream fout( "abce.out" );
-    int nr, test, x, y, i;
+    int nr = 0, test, x, y, i;
     redBlackTree tree;
     fin >> nr;
     for ( i = 0; i < nr; i++ ) {
