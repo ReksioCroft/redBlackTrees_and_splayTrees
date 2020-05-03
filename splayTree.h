@@ -28,6 +28,8 @@ public:
 
     bool find( int nr );
 
+    void empty();
+
     nod* getRoot();
 
     splayTree& operator=( splayTree& tree2 );

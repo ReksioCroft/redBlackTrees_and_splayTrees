@@ -35,12 +35,12 @@ int main() {
     std::cout << tree;
     redBlackTree tree1( tree );
     std::cout << tree1;
-    while ( tree.getNrNoduri() > 0 )
-        tree.deletion( tree.getRoot()->getVal() );
+    tree.empty();
     std::cout << tree1;
     std::cout << tree;
     redBlackTree tree2;
     tree2 = tree1;
+    tree1.empty();
     std::cout << tree2;
     fin.close();
     fout.close();

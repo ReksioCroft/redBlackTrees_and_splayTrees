@@ -26,6 +26,8 @@ public:
 
     void deletion( int nr );
 
+    void empty();
+
     bool find( int nr );
 
     redBlackNode* getRoot();

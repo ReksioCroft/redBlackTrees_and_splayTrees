@@ -154,6 +154,16 @@ void splayTree::deepcopy( nod* nodNou, nod* nodCopiat ) {
 }
 
 
-splayTree::splayTree( splayTree& tree2 ) {
-    *this = tree2;
+splayTree::splayTree( splayTree& tree2 ) : abstractTree( tree2 ) {
+    if ( tree2.root != nullptr ) {
+        nod* nodNou = new nod;
+        root = nodNou;
+        deepcopy( nodNou, tree2.root );
+    }
+}
+
+
+void splayTree::empty() {
+    while ( nrNoduri > 0 )
+        deletion( root->getVal() );
 }

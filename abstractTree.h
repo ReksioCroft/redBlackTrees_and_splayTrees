@@ -95,9 +95,13 @@ protected:
 public:
     abstractTree();
 
+    abstractTree( abstractTree& tree2 );
+
     virtual ~abstractTree() = 0;
 
     virtual void insert( int nr ) = 0;
+
+    virtual void empty() = 0;
 
 
     template < class nodType >

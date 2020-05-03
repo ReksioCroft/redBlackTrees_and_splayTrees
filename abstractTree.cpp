@@ -27,6 +27,11 @@ void afis( std::ostream& output, nodType* nod ) {
 }
 
 
+abstractTree::abstractTree( abstractTree& tree2 ) {
+    nrNoduri = tree2.nrNoduri;
+}
+
+
 std::istream& operator>>( std::istream& input, abstractTree& tree ) {
     int nr;
     input >> nr;

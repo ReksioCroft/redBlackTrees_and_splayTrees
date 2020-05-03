@@ -1,7 +1,7 @@
 #include "redBlackTree.h"
 
 
-redBlackTree::redBlackTree() {
+redBlackTree::redBlackTree() : abstractTree() {
     root = nullptr;
 }
 
@@ -256,6 +256,16 @@ void redBlackTree::deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat ) {
 }
 
 
-redBlackTree::redBlackTree( redBlackTree& tree2 ) {
-    *this = tree2;
+redBlackTree::redBlackTree( redBlackTree& tree2 ) : abstractTree( tree2 ) {
+    if ( tree2.root != nullptr ) {
+        redBlackNode* nodNou = new redBlackNode;
+        root = nodNou;
+        deepcopy( nodNou, tree2.root );
+    }
+}
+
+
+void redBlackTree::empty() {
+    while ( nrNoduri > 0 )
+        deletion( root->getVal() );
 }
