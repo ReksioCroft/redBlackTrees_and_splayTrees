@@ -192,9 +192,7 @@ bool redBlackTree::find( int nr ) {
     if ( root == nullptr )
         return false;
     redBlackNode* nodUltim;
-    redBlackNode* lowerBound;
-    redBlackNode* upperBound;
-    redBlackNode* nodCautat = findNodeByValue( root, nr, nodUltim, lowerBound, upperBound );
+    redBlackNode* nodCautat = findNodeByValue( root, nr, 'T', nodUltim );
     if ( nodCautat == nullptr )
         return false;
     else

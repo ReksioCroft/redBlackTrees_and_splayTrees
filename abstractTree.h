@@ -60,16 +60,22 @@ protected:
 
 
     template < class nodType >
-    nodType* findNodeByValue( nodType*& root, int val, nodType*& nodTata, nodType*& lowerBound, nodType*& upperBound ) {
-        nodType* nodCurent = nodTata = root;
-        lowerBound = upperBound = nullptr;
+    nodType* findNodeByValue( nodType*& root, int val, char valNodAux, nodType*& nodAux ) {
+        nodType* nodCurent = root;
+        ///valNodAux: 'T'=tata, 'L' = lowerBound, 'T' = upperBound
+        if ( valNodAux == 'T' )
+            nodAux = root;
+        else
+            nodAux = nullptr;
         while ( nodCurent != nullptr ) {
-            if ( nodCurent->getVal() != val )
-                nodTata = nodCurent;
-            if ( ( lowerBound == nullptr || lowerBound->getVal() < nodCurent->getVal() ) && nodCurent->getVal() <= val )
-                lowerBound = nodCurent;
-            if ( ( upperBound == nullptr || upperBound->getVal() > nodCurent->getVal() ) && nodCurent->getVal() >= val )
-                upperBound = nodCurent;
+            if ( valNodAux == 'T' && nodCurent->getVal() != val )
+                nodAux = nodCurent;
+            else if ( valNodAux == 'L' && ( nodAux == nullptr || nodAux->getVal() < nodCurent->getVal() ) &&
+                      nodCurent->getVal() <= val )
+                nodAux = nodCurent;
+            else if ( valNodAux == 'U' && ( nodAux == nullptr || nodAux->getVal() > nodCurent->getVal() ) &&
+                      nodCurent->getVal() >= val )
+                nodAux = nodCurent;
             if ( nodCurent->getVal() == val )
                 return nodCurent;
             else if ( val < nodCurent->getVal() )
@@ -107,9 +113,7 @@ public:
     template < class nodType >
     void deletion( nodType*& root, nodType*& nodCurent, int& lastMove, nodType*& nodUltim, int nr ) {
         ///metoda abstracta nu dezaloca memoria pt nodul sters, ci il intoarce prin parametrul nodCurent
-        nodType* lowerBound;
-        nodType* upperBound;
-        nodCurent = findNodeByValue( root, nr, nodUltim, lowerBound, upperBound );
+        nodCurent = findNodeByValue( root, nr, 'T', nodUltim );
         lastMove = 1;
         if ( nodCurent != nullptr ) {
             nrNoduri--;
@@ -192,11 +196,8 @@ public:
 
     template < class nodType >
     int upperBound( nodType* root, int nr ) {
-        nodType* nodCurent;
-        nodType* nodUltim;
-        nodType* lowerBound;
         nodType* upperBound;
-        nodCurent = findNodeByValue( root, nr, nodUltim, lowerBound, upperBound );
+        findNodeByValue( root, nr, 'U', upperBound );
         return upperBound->getVal();
     }
 
@@ -210,11 +211,8 @@ public:
 
     template < class nodType >
     int lowerBound( nodType* root, int nr ) {
-        nodType* nodCurent;
-        nodType* nodUltim;
         nodType* lowerBound;
-        nodType* upperBound;
-        nodCurent = findNodeByValue( root, nr, nodUltim, lowerBound, upperBound );
+        findNodeByValue( root, nr, 'L', lowerBound );
         return lowerBound->getVal();
     }
 
