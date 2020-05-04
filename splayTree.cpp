@@ -100,7 +100,7 @@ bool splayTree::find( int nr ) {
     if ( root == nullptr )
         return false;
     nod* nodUltim;
-    nod* nodCautat = findNodeByValue( root, nr, 'T', nodUltim );
+    nod* nodCautat = findNodeByValue( root, nr, T, nodUltim );
     if ( nodCautat == nullptr ) {
         splay( nodUltim );
         return false;

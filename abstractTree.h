@@ -11,6 +11,9 @@ class abstractTree {
 
 protected:
     int nrNoduri;
+    enum findAuxNodeType {
+        T, L, U
+    };
 
 
     template < class nodType >
@@ -60,20 +63,20 @@ protected:
 
 
     template < class nodType >
-    nodType* findNodeByValue( nodType*& root, int val, char valNodAux, nodType*& nodAux ) {
+    nodType* findNodeByValue( nodType*& root, int val, const findAuxNodeType valNodAux, nodType*& nodAux ) {
         nodType* nodCurent = root;
-        ///valNodAux: 'T'=tata, 'L' = lowerBound, 'T' = upperBound
-        if ( valNodAux == 'T' )
+        ///valNodAux: T == tata, L == lowerBound, U == upperBound
+        if ( valNodAux == T )
             nodAux = root;
         else
             nodAux = nullptr;
         while ( nodCurent != nullptr ) {
-            if ( valNodAux == 'T' && nodCurent->getVal() != val )
+            if ( valNodAux == T && nodCurent->getVal() != val )
                 nodAux = nodCurent;
-            else if ( valNodAux == 'L' && ( nodAux == nullptr || nodAux->getVal() < nodCurent->getVal() ) &&
+            else if ( valNodAux == L && ( nodAux == nullptr || nodAux->getVal() < nodCurent->getVal() ) &&
                       nodCurent->getVal() <= val )
                 nodAux = nodCurent;
-            else if ( valNodAux == 'U' && ( nodAux == nullptr || nodAux->getVal() > nodCurent->getVal() ) &&
+            else if ( valNodAux == U && ( nodAux == nullptr || nodAux->getVal() > nodCurent->getVal() ) &&
                       nodCurent->getVal() >= val )
                 nodAux = nodCurent;
             if ( nodCurent->getVal() == val )
@@ -113,7 +116,7 @@ public:
     template < class nodType >
     void deletion( nodType*& root, nodType*& nodCurent, int& lastMove, nodType*& nodUltim, int nr ) {
         ///metoda abstracta nu dezaloca memoria pt nodul sters, ci il intoarce prin parametrul nodCurent
-        nodCurent = findNodeByValue( root, nr, 'T', nodUltim );
+        nodCurent = findNodeByValue( root, nr, T, nodUltim );
         lastMove = 1;
         if ( nodCurent != nullptr ) {
             nrNoduri--;
@@ -197,7 +200,7 @@ public:
     template < class nodType >
     int upperBound( nodType* root, int nr ) {
         nodType* upperBound;
-        findNodeByValue( root, nr, 'U', upperBound );
+        findNodeByValue( root, nr, U, upperBound );
         return upperBound->getVal();
     }
 
@@ -212,7 +215,7 @@ public:
     template < class nodType >
     int lowerBound( nodType* root, int nr ) {
         nodType* lowerBound;
-        findNodeByValue( root, nr, 'L', lowerBound );
+        findNodeByValue( root, nr, L, lowerBound );
         return lowerBound->getVal();
     }
 
