@@ -33,54 +33,50 @@ void redBlackTree::insert( int nr ) {
 
 
 void redBlackTree::redBlackInsertionFix( redBlackNode* nodCurent ) {
-    try {
-        while ( nodCurent != nullptr && nodCurent->getTata() != nullptr &&
-                nodCurent->getCuloare() == 'R' && nodCurent->getTata()->getCuloare() == 'R' ) {
-            ///intrucat radacina e mereu neagra, suntem siguri ca avem bunic
-            if ( nodCurent->getTata()->getTata()->getFiu( 1 ) == nodCurent->getTata() ) {
-                ///daca tatal meu a fost un fiu stang
-                redBlackNode* nodUnchi = nodCurent->getTata()->getTata()->getFiu( 2 );
-                if ( nodUnchi != nullptr && nodUnchi->getCuloare() == 'R' ) {
-                    nodCurent->getTata()->setCuloare( 'B' );
-                    nodUnchi->setCuloare( 'B' );
-                    nodCurent->getTata()->getTata()->setCuloare( 'R' );
-                    nodCurent = nodCurent->getTata()->getTata();
-                }
-                else {
-                    if ( nodCurent->getTata()->getFiu( 2 ) == nodCurent ) { ///daca sunt fiul drept al unui fiu stang
-                        rotateLeft( root, nodCurent );
-                        nodCurent = nodCurent->getFiu( 1 );
-                    }
-                    nodCurent->getTata()->setCuloare( 'B' );
-                    nodCurent->getTata()->getTata()->setCuloare( 'R' );
-                    rotateRight( root, nodCurent->getTata() );
-                }
+    while ( nodCurent != nullptr && nodCurent->getTata() != nullptr &&
+            nodCurent->getCuloare() == 'R' && nodCurent->getTata()->getCuloare() == 'R' ) {
+        ///intrucat radacina e mereu neagra, suntem siguri ca avem bunic
+        if ( nodCurent->getTata()->getTata()->getFiu( 1 ) == nodCurent->getTata() ) {
+            ///daca tatal meu a fost un fiu stang
+            redBlackNode* nodUnchi = nodCurent->getTata()->getTata()->getFiu( 2 );
+            if ( nodUnchi != nullptr && nodUnchi->getCuloare() == 'R' ) {
+                nodCurent->getTata()->setCuloare( 'B' );
+                nodUnchi->setCuloare( 'B' );
+                nodCurent->getTata()->getTata()->setCuloare( 'R' );
+                nodCurent = nodCurent->getTata()->getTata();
             }
             else {
-                ///daca tatal meu a fost un fiu drept
-                redBlackNode* nodUnchi = nodCurent->getTata()->getTata()->getFiu( 1 );
-                if ( nodUnchi != nullptr && nodUnchi->getCuloare() == 'R' ) {
-                    nodCurent->getTata()->setCuloare( 'B' );
-                    nodUnchi->setCuloare( 'B' );
-                    nodCurent->getTata()->getTata()->setCuloare( 'R' );
-                    nodCurent = nodCurent->getTata()->getTata();
+                if ( nodCurent->getTata()->getFiu( 2 ) == nodCurent ) { ///daca sunt fiul drept al unui fiu stang
+                    rotateLeft( root, nodCurent );
+                    nodCurent = nodCurent->getFiu( 1 );
                 }
-                else {
-                    if ( nodCurent->getTata()->getFiu( 1 ) == nodCurent ) { ///daca sunt fiul stang al unui fiu drept
-                        rotateRight( root, nodCurent );
-                        nodCurent = nodCurent->getFiu( 2 );
-                    }
-                    nodCurent->getTata()->setCuloare( 'B' );
-                    nodCurent->getTata()->getTata()->setCuloare( 'R' );
-                    rotateLeft( root, nodCurent->getTata() );
-                }
+                nodCurent->getTata()->setCuloare( 'B' );
+                nodCurent->getTata()->getTata()->setCuloare( 'R' );
+                rotateRight( root, nodCurent->getTata() );
             }
         }
-        root->setCuloare( 'B' );
+        else {
+            ///daca tatal meu a fost un fiu drept
+            redBlackNode* nodUnchi = nodCurent->getTata()->getTata()->getFiu( 1 );
+            if ( nodUnchi != nullptr && nodUnchi->getCuloare() == 'R' ) {
+                nodCurent->getTata()->setCuloare( 'B' );
+                nodUnchi->setCuloare( 'B' );
+                nodCurent->getTata()->getTata()->setCuloare( 'R' );
+                nodCurent = nodCurent->getTata()->getTata();
+            }
+            else {
+                if ( nodCurent->getTata()->getFiu( 1 ) == nodCurent ) { ///daca sunt fiul stang al unui fiu drept
+                    rotateRight( root, nodCurent );
+                    nodCurent = nodCurent->getFiu( 2 );
+                }
+                nodCurent->getTata()->setCuloare( 'B' );
+                nodCurent->getTata()->getTata()->setCuloare( 'R' );
+                rotateLeft( root, nodCurent->getTata() );
+            }
+        }
     }
-    catch ( std::logic_error& e ) {
-        std::cout << e.what() << "\n";
-    }
+    root->setCuloare( 'B' );
+
 }
 
 
@@ -102,89 +98,84 @@ void redBlackTree::deletion( int nr ) {
 
 
 void redBlackTree::redBlackDeletionFix( redBlackNode* nodCurent ) {
-    try {
-        while ( nodCurent != root && nodCurent->getCuloare() == 'B' ) {
-            if ( nodCurent->getTata()->getFiu( 1 ) == nodCurent ) {
-                ///daca sunt un fiu stang
-                redBlackNode* nodFrate = nodCurent->getTata()->getFiu( 2 );
-                if ( nodFrate == nullptr )
-                    nodCurent->setCuloare( 'R' );
-                else {
-                    if ( nodFrate->getCuloare() == 'R' ) {///implicit, tatal comun e negru
-                        ///daca am un frate rosu, fac in asa fel incat sa am un frate negru =>tata rosu
-                        nodFrate->setCuloare( 'B' );
-                        nodCurent->getTata()->setCuloare( 'R' );
-                        rotateLeft( root, nodFrate );
-                        nodFrate = nodCurent->getTata()->getFiu( 2 );
+    while ( nodCurent != root && nodCurent->getCuloare() == 'B' ) {
+        if ( nodCurent->getTata()->getFiu( 1 ) == nodCurent ) {
+            ///daca sunt un fiu stang
+            redBlackNode* nodFrate = nodCurent->getTata()->getFiu( 2 );
+            if ( nodFrate == nullptr )
+                nodCurent->setCuloare( 'R' );
+            else {
+                if ( nodFrate->getCuloare() == 'R' ) {///implicit, tatal comun e negru
+                    ///daca am un frate rosu, fac in asa fel incat sa am un frate negru =>tata rosu
+                    nodFrate->setCuloare( 'B' );
+                    nodCurent->getTata()->setCuloare( 'R' );
+                    rotateLeft( root, nodFrate );
+                    nodFrate = nodCurent->getTata()->getFiu( 2 );
+                }
+                if ( nodFrate != nullptr ) {
+                    if ( ( nodFrate->getFiu( 1 ) == nullptr || nodFrate->getFiu( 1 )->getCuloare() == 'B' ) &&
+                         ( nodFrate->getFiu( 2 ) == nullptr || nodFrate->getFiu( 2 )->getCuloare() == 'B' ) ) {
+                        ///fratele meu fiind sigur negru, daca nu are fii rosii, il fac rosu si am scapat
+                        nodFrate->setCuloare( 'R' );
+                        nodCurent->getTata()->setCuloare( 'B' );
+                        nodCurent = nodCurent->getTata();
                     }
-                    if ( nodFrate != nullptr ) {
-                        if ( ( nodFrate->getFiu( 1 ) == nullptr || nodFrate->getFiu( 1 )->getCuloare() == 'B' ) &&
-                             ( nodFrate->getFiu( 2 ) == nullptr || nodFrate->getFiu( 2 )->getCuloare() == 'B' ) ) {
-                            ///fratele meu fiind sigur negru, daca nu are fii rosii, il fac rosu si am scapat
+                    else {
+                        if ( nodFrate->getFiu( 1 ) != nullptr && nodFrate->getFiu( 1 )->getCuloare() == 'R' ) {
+                            nodFrate->getFiu( 1 )->setCuloare( 'B' );
                             nodFrate->setCuloare( 'R' );
-                            nodCurent->getTata()->setCuloare( 'B' );
-                            nodCurent = nodCurent->getTata();
+                            rotateRight( root, nodFrate->getFiu( 1 ) );
                         }
-                        else {
-                            if ( nodFrate->getFiu( 1 ) != nullptr && nodFrate->getFiu( 1 )->getCuloare() == 'R' ) {
-                                nodFrate->getFiu( 1 )->setCuloare( 'B' );
-                                nodFrate->setCuloare( 'R' );
-                                rotateRight( root, nodFrate->getFiu( 1 ) );
-                            }
-                            nodFrate->setCuloare( nodCurent->getTata()->getCuloare() );
-                            nodCurent->getTata()->setCuloare( 'B' );
-                            if ( nodFrate->getFiu( 2 ) != nullptr )
-                                nodFrate->getFiu( 2 )->setCuloare( 'B' );
-                            rotateLeft( root, nodFrate );
-                            nodCurent = root;
-                        }
-
+                        nodFrate->setCuloare( nodCurent->getTata()->getCuloare() );
+                        nodCurent->getTata()->setCuloare( 'B' );
+                        if ( nodFrate->getFiu( 2 ) != nullptr )
+                            nodFrate->getFiu( 2 )->setCuloare( 'B' );
+                        rotateLeft( root, nodFrate );
+                        nodCurent = root;
                     }
+
                 }
             }
+        }
+        else {
+            ///daca sunt un fiu drept
+            redBlackNode* nodFrate = nodCurent->getTata()->getFiu( 1 );
+            if ( nodFrate == nullptr )
+                nodCurent->setCuloare( 'R' );
             else {
-                ///daca sunt un fiu drept
-                redBlackNode* nodFrate = nodCurent->getTata()->getFiu( 1 );
-                if ( nodFrate == nullptr )
-                    nodCurent->setCuloare( 'R' );
-                else {
-                    if ( nodFrate->getCuloare() == 'R' ) {///implicit, tatal comun e negru
-                        ///daca am un frate rosu, fac in asa fel incat sa am un frate negru =>tata rosu
-                        nodFrate->setCuloare( 'B' );
-                        nodCurent->getTata()->setCuloare( 'R' );
-                        rotateRight( root, nodFrate );
-                        nodFrate = nodCurent->getTata()->getFiu( 1 );
+                if ( nodFrate->getCuloare() == 'R' ) {///implicit, tatal comun e negru
+                    ///daca am un frate rosu, fac in asa fel incat sa am un frate negru =>tata rosu
+                    nodFrate->setCuloare( 'B' );
+                    nodCurent->getTata()->setCuloare( 'R' );
+                    rotateRight( root, nodFrate );
+                    nodFrate = nodCurent->getTata()->getFiu( 1 );
+                }
+                if ( nodFrate != nullptr ) {
+                    if ( ( nodFrate->getFiu( 1 ) == nullptr || nodFrate->getFiu( 1 )->getCuloare() == 'B' ) &&
+                         ( nodFrate->getFiu( 2 ) == nullptr || nodFrate->getFiu( 2 )->getCuloare() == 'B' ) ) {
+                        ///fratele meu fiind sigur negru, daca nu are fii rosii, il fac rosu si am scapat
+                        nodFrate->setCuloare( 'R' );
+                        nodCurent->getTata()->setCuloare( 'B' );
+                        nodCurent = nodCurent->getTata();
                     }
-                    if ( nodFrate != nullptr ) {
-                        if ( ( nodFrate->getFiu( 1 ) == nullptr || nodFrate->getFiu( 1 )->getCuloare() == 'B' ) &&
-                             ( nodFrate->getFiu( 2 ) == nullptr || nodFrate->getFiu( 2 )->getCuloare() == 'B' ) ) {
-                            ///fratele meu fiind sigur negru, daca nu are fii rosii, il fac rosu si am scapat
+                    else {
+                        if ( nodFrate->getFiu( 2 ) != nullptr && nodFrate->getFiu( 2 )->getCuloare() == 'R' ) {
+                            nodFrate->getFiu( 2 )->setCuloare( 'B' );
                             nodFrate->setCuloare( 'R' );
-                            nodCurent->getTata()->setCuloare( 'B' );
-                            nodCurent = nodCurent->getTata();
+                            rotateLeft( root, nodFrate->getFiu( 2 ) );
                         }
-                        else {
-                            if ( nodFrate->getFiu( 2 ) != nullptr && nodFrate->getFiu( 2 )->getCuloare() == 'R' ) {
-                                nodFrate->getFiu( 2 )->setCuloare( 'B' );
-                                nodFrate->setCuloare( 'R' );
-                                rotateLeft( root, nodFrate->getFiu( 2 ) );
-                            }
-                            nodFrate->setCuloare( nodCurent->getTata()->getCuloare() );
-                            nodCurent->getTata()->setCuloare( 'B' );
-                            if ( nodFrate->getFiu( 1 ) != nullptr )
-                                nodFrate->getFiu( 1 )->setCuloare( 'B' );
-                            rotateRight( root, nodFrate );
-                            nodCurent = root;
-                        }
+                        nodFrate->setCuloare( nodCurent->getTata()->getCuloare() );
+                        nodCurent->getTata()->setCuloare( 'B' );
+                        if ( nodFrate->getFiu( 1 ) != nullptr )
+                            nodFrate->getFiu( 1 )->setCuloare( 'B' );
+                        rotateRight( root, nodFrate );
+                        nodCurent = root;
                     }
                 }
             }
         }
-        nodCurent->setCuloare( 'B' );
     }
-    catch ( std::logic_error& e ) {
-        std::cout << e.what() << '\n';
-    }
+    nodCurent->setCuloare( 'B' );
 }
 
 
@@ -255,6 +246,7 @@ void redBlackTree::deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat ) {
     }
 }
 
+
 /*
 redBlackTree::redBlackTree( redBlackTree& tree2 ) : abstractTree( tree2 ) {
     if ( tree2.root != nullptr ) {
@@ -270,6 +262,7 @@ redBlackTree::redBlackTree( redBlackTree& tree2 ) : abstractTree( tree2 ) {
 redBlackTree::redBlackTree( redBlackTree& tree2 ) : abstractTree() {
     *this = tree2;
 }
+
 
 void redBlackTree::empty() {
     while ( nrNoduri > 0 )

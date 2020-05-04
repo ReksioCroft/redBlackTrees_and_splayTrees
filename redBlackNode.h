@@ -3,7 +3,6 @@
 
 
 #include "nod.h"
-#include <stdexcept>
 
 
 class redBlackNode : public nod {
