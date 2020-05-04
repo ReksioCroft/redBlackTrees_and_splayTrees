@@ -162,6 +162,8 @@ splayTree::splayTree( splayTree& tree2 ) : abstractTree( tree2 ) {
         root = nodNou;
         deepcopy( nodNou, tree2.root );
     }
+    else
+        root = nullptr;
 }
 
 
