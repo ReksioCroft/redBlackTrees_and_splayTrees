@@ -34,7 +34,7 @@ public:
 
     int blackHigh();
 
-    redBlackTree& operator=( redBlackTree& tree2 );
+    redBlackTree& operator=( redBlackTree tree2 );
 };
 
 

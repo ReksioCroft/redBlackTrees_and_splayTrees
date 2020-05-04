@@ -32,7 +32,7 @@ public:
 
     nod* getRoot();
 
-    splayTree& operator=( splayTree& tree2 );
+    splayTree& operator=( splayTree tree2 );
 };
 
 

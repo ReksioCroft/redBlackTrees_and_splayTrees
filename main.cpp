@@ -40,6 +40,7 @@ int main() {
         std::cout<<e.what()<<'\n';
     }
     std::cout << tree;
+    tree = tree;
     redBlackTree tree1( tree );
     std::cout << tree1;
     tree.empty();

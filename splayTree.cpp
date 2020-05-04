@@ -10,8 +10,7 @@ splayTree::splayTree() : abstractTree() {
 
 
 splayTree::~splayTree() {
-    while ( root != nullptr )
-        deletion( root->getVal() );
+    empty();
 }
 
 
@@ -123,17 +122,19 @@ void splayTree::deletion( int nr ) {
 }
 
 
-splayTree& splayTree::operator=( splayTree& tree2 ) {
-    while ( nrNoduri > 0 )
-        deletion( root->getVal() );
+splayTree& splayTree::operator=( splayTree tree2 ) {
+    splayTree aux;
+    aux.root = root;
+    aux.nrNoduri = nrNoduri;
+
+    root = tree2.root;
+    tree2.root = aux.root;
+    aux.root = nullptr;
+
     nrNoduri = tree2.nrNoduri;
-    if ( tree2.root != nullptr ) {
-        nod* nodNou = new nod;
-        root = nodNou;
-        deepcopy( nodNou, tree2.root );
-    }
-    else
-        root = nullptr;
+    tree2.nrNoduri = aux.nrNoduri;
+    aux.nrNoduri = 0;
+
     return *this;
 }
 
