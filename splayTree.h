@@ -7,6 +7,7 @@
 
 
 class splayTree : public abstractTree {
+    static int nrInstanteCurente;
     nod* root;
 
     void splayInsert( nod* nodNou ) const;
@@ -17,12 +18,8 @@ class splayTree : public abstractTree {
 
     splayTree();
 
-
-
-    static int nrInstanteCurente;
-
 public:
-    splayTree( splayTree& tree2 );
+    splayTree( const splayTree& tree2 );
 
     ~splayTree() override;
 
@@ -38,7 +35,7 @@ public:
 
     splayTree& operator=( splayTree tree2 );
 
-    static splayTree *getInstance();
+    static splayTree* getInstance();
 };
 
 

@@ -20,7 +20,7 @@ class redBlackTree : public abstractTree {
     redBlackTree();
 
 public:
-    redBlackTree( redBlackTree& tree2 );
+    redBlackTree( const redBlackTree& tree2 );
 
     ~redBlackTree() override;
 

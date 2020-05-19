@@ -10,7 +10,7 @@ class redBlackNode : public nod {
 public:
     explicit redBlackNode( int nr = 0 );
 
-    redBlackNode( redBlackNode& nod2 );
+    redBlackNode( const redBlackNode& nod2 );
 
     ~redBlackNode() override;
 

@@ -252,7 +252,7 @@ void redBlackTree::deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat ) {
 }
 
 
-redBlackTree::redBlackTree( redBlackTree& tree2 ) : abstractTree( tree2 ) {
+redBlackTree::redBlackTree( const redBlackTree& tree2 ) : abstractTree( tree2 ) {
     nrInstanteCurente++;
     if ( tree2.root != nullptr ) {
         redBlackNode* nodNou = new redBlackNode(*tree2.root);

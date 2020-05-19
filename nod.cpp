@@ -44,9 +44,9 @@ void nod::setVal( int nr ) {
 }
 
 
-nod::nod( nod* nod2 ) {
+nod::nod( const nod& nod2 ) {
     fiu1 = fiu2 = tata = nullptr;
-    val = nod2->val;
+    val = nod2.val;
 }
 
 
