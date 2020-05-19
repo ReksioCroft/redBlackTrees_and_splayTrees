@@ -13,13 +13,13 @@ public:
 
     explicit nod( nod* nod2 );
 
-    nod* getFiu( int nrFiu );
+    virtual nod* getFiu( int nrFiu );
 
     void setFiu( int nrFiu, nod* nodNou );
 
     void setVal( int nr );
 
-    nod* getTata();
+    virtual nod* getTata();
 
     void setTata( nod* nodNou );
 

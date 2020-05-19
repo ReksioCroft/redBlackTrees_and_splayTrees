@@ -10,19 +10,19 @@ class redBlackNode : public nod {
 public:
     explicit redBlackNode( int nr = 0 );
 
-    explicit redBlackNode( redBlackNode& nod2 );
+    redBlackNode( redBlackNode& nod2 );
 
-    ~redBlackNode();
+    ~redBlackNode() override;
 
     char getCuloare() const;
 
     void setCuloare( char c );
 
-    redBlackNode* getTata();
+    redBlackNode* getTata() override;
 
     void setTata( redBlackNode* nodCurent );
 
-    redBlackNode* getFiu( int nrFiu );
+    redBlackNode* getFiu( int nrFiu ) override;
 
     void setFiu( int nrFiu, redBlackNode* nodCurent );
 

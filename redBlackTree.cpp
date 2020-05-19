@@ -237,15 +237,14 @@ redBlackTree& redBlackTree::operator=( redBlackTree tree2 ) {
 
 
 void redBlackTree::deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat ) {
-    *nodNou = nodCopiat;
     if ( nodCopiat->getFiu( 1 ) != nullptr ) {
-        redBlackNode* nodNou1 = new redBlackNode;
+        redBlackNode* nodNou1 = new redBlackNode(*nodCopiat->getFiu(1));
         nodNou->setFiu( 1, nodNou1 );
         nodNou1->setTata( nodNou );
         deepcopy( nodNou1, nodCopiat->getFiu( 1 ) );
     }
     if ( nodCopiat->getFiu( 2 ) != nullptr ) {
-        redBlackNode* nodNou2 = new redBlackNode;
+        redBlackNode* nodNou2 = new redBlackNode(*nodCopiat->getFiu(2));
         nodNou->setFiu( 2, nodNou2 );
         nodNou2->setTata( nodNou );
         deepcopy( nodNou2, nodCopiat->getFiu( 2 ) );
@@ -256,7 +255,7 @@ void redBlackTree::deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat ) {
 redBlackTree::redBlackTree( redBlackTree& tree2 ) : abstractTree( tree2 ) {
     nrInstanteCurente++;
     if ( tree2.root != nullptr ) {
-        redBlackNode* nodNou = new redBlackNode;
+        redBlackNode* nodNou = new redBlackNode(*tree2.root);
         root = nodNou;
         deepcopy( nodNou, tree2.root );
     }
