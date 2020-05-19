@@ -1,7 +1,11 @@
 #include "redBlackTree.h"
 
 
+int redBlackTree::nrInstanteCurente = 0;
+
+
 redBlackTree::redBlackTree() : abstractTree() {
+    nrInstanteCurente++;
     root = nullptr;
 }
 
@@ -198,11 +202,12 @@ redBlackNode* redBlackTree::getRoot() {
 
 
 redBlackTree::~redBlackTree() {
-    empty();
+    nrInstanteCurente--;
+    clear();
 }
 
 
-int redBlackTree::blackHigh() {
+int redBlackTree::blackHigh() const{
     redBlackNode* nodCurent = root;
     int co = 0;
     while ( nodCurent != nullptr ) {    ///intrucat si radacina si frunzele NIL au culoarea neagra,
@@ -249,6 +254,7 @@ void redBlackTree::deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat ) {
 
 
 redBlackTree::redBlackTree( redBlackTree& tree2 ) : abstractTree( tree2 ) {
+    nrInstanteCurente++;
     if ( tree2.root != nullptr ) {
         redBlackNode* nodNou = new redBlackNode;
         root = nodNou;
@@ -259,7 +265,17 @@ redBlackTree::redBlackTree( redBlackTree& tree2 ) : abstractTree( tree2 ) {
 }
 
 
-void redBlackTree::empty() {
+void redBlackTree::clear() {
     while ( nrNoduri > 0 )
         deletion( root->getVal() );
+}
+
+
+redBlackTree* redBlackTree::getInstance() {
+    if ( nrInstanteCurente == abstractTree::getNrInstante() ) {
+        redBlackTree* tree = new redBlackTree;
+        return tree;
+    }
+    else
+        return nullptr;
 }

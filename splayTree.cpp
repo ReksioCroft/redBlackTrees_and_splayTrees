@@ -3,14 +3,17 @@
 ///https://www.youtube.com/watch?v=IBY4NtxmGg8
 #include "splayTree.h"
 
+int splayTree::nrInstanteCurente = 0;
 
 splayTree::splayTree() : abstractTree() {
+    nrInstanteCurente++;
     root = nullptr;
 }
 
 
 splayTree::~splayTree() {
-    empty();
+    nrInstanteCurente--;
+    clear();
 }
 
 
@@ -27,7 +30,7 @@ void splayTree::insert( int nr ) {
 }
 
 
-void splayTree::splayInsert( nod* nodNou ) {
+void splayTree::splayInsert( nod* nodNou ) const{
     nod* nodCurent = root;
     int lastMove = 1;
     while ( nodCurent != nullptr ) {
@@ -157,6 +160,7 @@ void splayTree::deepcopy( nod* nodNou, nod* nodCopiat ) {
 
 
 splayTree::splayTree( splayTree& tree2 ) : abstractTree( tree2 ) {
+    nrInstanteCurente++;
     if ( tree2.root != nullptr ) {
         nod* nodNou = new nod;
         root = nodNou;
@@ -167,7 +171,17 @@ splayTree::splayTree( splayTree& tree2 ) : abstractTree( tree2 ) {
 }
 
 
-void splayTree::empty() {
+void splayTree::clear() {
     while ( nrNoduri > 0 )
         deletion( root->getVal() );
+}
+
+
+splayTree* splayTree::getInstance() {
+    if( nrInstanteCurente == abstractTree::getNrInstante() ){
+        splayTree *tree = new splayTree;
+        return tree;
+    }
+    else
+        return nullptr;
 }

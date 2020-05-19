@@ -11,7 +11,7 @@ protected:
 public:
     explicit nod( int nr = 0 );
 
-    nod( nod* nod2 );
+    explicit nod( nod* nod2 );
 
     nod* getFiu( int nrFiu );
 
@@ -23,7 +23,7 @@ public:
 
     void setTata( nod* nodNou );
 
-    int getVal();
+    int getVal() const;
 
     virtual ~nod();
 

@@ -50,7 +50,7 @@ nod::nod( nod* nod2 ) {
 }
 
 
-int nod::getVal() {
+int nod::getVal() const{
     return val;
 }
 

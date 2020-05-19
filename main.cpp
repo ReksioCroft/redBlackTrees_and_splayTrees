@@ -1,56 +1,90 @@
 #include <fstream>
 #include "splayTree.h"
 #include "redBlackTree.h"
+#include <list>
+#include <functional>
 
-int main() {
+
+template < class treeType, class treeType2 >
+void solve() {
+    std::cout << "Testul pentru " << typeid( treeType ).name() << '\n';
     std::ifstream fin( "abce.in" );
     std::ofstream fout( "abce.out" );
-    int nr = 0, test, x, y, i;
-    redBlackTree tree;
+    std::list <treeType*> trees;
+    treeType* tree = treeType::getInstance();
+    trees.push_back( tree );
     try {
-        if(fin.fail())
+        int nr = 0, test, x, y;
+        if ( fin.fail() )
             throw std::runtime_error( "Nu exista fisierul abce.in" );
         fin >> nr;
-        for ( i = 0; i < nr; i++ ) {
+        for ( int i = 0; i < nr; i++ ) {
             fin >> test;
             if ( test == 1 )
-                fin >> tree;
+                fin >> *tree;
             else if ( test < 7 )
                 fin >> x;
             if ( test == 2 )
-                tree.deletion( x );
+                tree->deletion( x );
             else if ( test == 3 )
-                fout << tree.find( x ) << "\n";
+                fout << tree->find( x ) << "\n";
             else if ( test == 4 )
-                fout << tree.lowerBound( tree.getRoot(), x ) << "\n";
+                fout << tree->lowerBound( tree->getRoot(), x ) << "\n";
             else if ( test == 5 )
-                fout << tree.upperBound( tree.getRoot(), x ) << "\n";
+                fout << tree->upperBound( tree->getRoot(), x ) << "\n";
             else if ( test == 6 ) {
                 fin >> y;
-                tree.printInterval( tree.getRoot(), fout, x, y );
+                tree->printInterval( tree->getRoot(), fout, x, y );
             }
             else if ( test == 7 )
-                fout << tree.getNrNoduri() << "\n";
-            else if( test == 8 )
-                fout << tree.blackHigh() << '\n';
+                fout << tree->getNrNoduri() << "\n";
+            //  else if ( test == 8 )
+            //    fout << tree->blackHigh() << '\n';
 
         }
     }
-    catch ( std::runtime_error& e) {
-        std::cout<<e.what()<<'\n';
+    catch ( std::runtime_error& e ) {
+        std::cout << e.what() << '\n';
     }
-    std::cout << tree;
-    tree = tree;
-    redBlackTree tree1( tree );
+    std::cout << *tree;
+    *tree = *tree;
+    treeType tree1( *tree );
     std::cout << tree1;
-    tree.empty();
+    tree->clear();
     std::cout << tree1;
-    std::cout << tree;
-    redBlackTree tree2;
-    tree2 = tree1;
-    tree1.empty();
-    std::cout << tree2;
+    std::cout << *tree;
+    treeType* tree2 = treeType::getInstance();
+    trees.push_back( tree2 );
+    *tree2 = tree1;
+    tree1.clear();
+    std::cout << *tree2;
+    try {
+        treeType2* s = treeType2::getInstance();
+        if ( s != nullptr ) {
+            treeType2 s2( *s );
+            throw std::logic_error( "Design-Pattern incorrect implement" );
+        }
+        else
+            throw std::bad_function_call();
+    }
+    catch ( std::logic_error& e ) {
+        std::cout << e.what() << "\n";
+    }
+    catch ( std::bad_function_call& e ) {
+        std::cout << e.what() << '\n';
+    }
+    while ( trees.empty() == false ) {
+        delete *( trees.begin() );
+        trees.pop_front();
+    }
     fin.close();
     fout.close();
+    std::cout << "\n";
+}
+
+
+int main() {
+    solve <redBlackTree, splayTree>();
+    solve <splayTree, redBlackTree>();
     return 0;
 }

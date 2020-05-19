@@ -9,30 +9,36 @@
 class splayTree : public abstractTree {
     nod* root;
 
-    void splayInsert( nod* nodNou );
+    void splayInsert( nod* nodNou ) const;
 
     void splay( nod* nodCurent );
 
     void deepcopy( nod* nodNou, nod* nodCopiat );
 
-public:
     splayTree();
 
+
+
+    static int nrInstanteCurente;
+
+public:
     splayTree( splayTree& tree2 );
 
-    ~splayTree();
+    ~splayTree() override;
 
-    void insert( int nr );
+    void insert( int nr ) override;
 
     void deletion( int nr );
 
-    bool find( int nr );
+    bool find( int nr ) override;
 
-    void empty();
+    void clear() override;
 
-    nod* getRoot();
+    nod* getRoot() override;
 
     splayTree& operator=( splayTree tree2 );
+
+    static splayTree *getInstance();
 };
 
 

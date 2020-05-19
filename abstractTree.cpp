@@ -1,34 +1,28 @@
 #include "abstractTree.h"
 #include "splayTree.h"
 
+int abstractTree::nrInstante = 0;
 
 abstractTree::abstractTree() {
+    nrInstante++;
     nrNoduri = 0;
+}
+
+
+abstractTree::abstractTree( const abstractTree& tree2 ) {
+    nrInstante++;
+    nrNoduri = tree2.nrNoduri;
 }
 
 
 abstractTree::~abstractTree() {
+    nrInstante--;
     nrNoduri = 0;
 }
 
 
-int abstractTree::getNrNoduri() {
+int abstractTree::getNrNoduri() const {
     return nrNoduri;
-}
-
-
-template < class nodType >
-void afis( std::ostream& output, nodType* nod ) {
-    if ( nod->getFiu( 1 ) != nullptr )
-        afis( output, nod->getFiu( 1 ) );
-    output << nod->getVal() << " ";
-    if ( nod->getFiu( 2 ) != nullptr )
-        afis( output, nod->getFiu( 2 ) );
-}
-
-
-abstractTree::abstractTree( abstractTree& tree2 ) {
-    nrNoduri = tree2.nrNoduri;
 }
 
 
@@ -47,4 +41,9 @@ std::ostream& operator<<( std::ostream& output, abstractTree& tree ) {
     }
     else output << "Tree gol\n";
     return output;
+}
+
+
+int abstractTree::getNrInstante() {
+    return nrInstante;
 }

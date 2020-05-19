@@ -8,13 +8,13 @@
 class redBlackNode : public nod {
     char* culoare;
 public:
-    redBlackNode( int nr = 0 );
+    explicit redBlackNode( int nr = 0 );
 
-    redBlackNode( redBlackNode* nod2 );
+    explicit redBlackNode( redBlackNode& nod2 );
 
     ~redBlackNode();
 
-    char getCuloare();
+    char getCuloare() const;
 
     void setCuloare( char c );
 

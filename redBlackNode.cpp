@@ -11,7 +11,7 @@ redBlackNode::~redBlackNode() {
 }
 
 
-char redBlackNode::getCuloare() {
+char redBlackNode::getCuloare() const{
     return *culoare;
 }
 
@@ -54,6 +54,6 @@ redBlackNode& redBlackNode::operator=( redBlackNode* nod2 ) {
 }
 
 
-redBlackNode::redBlackNode( redBlackNode* nod2 ) : nod( nod2 ) {
-    culoare = new char( nod2->getCuloare() );
+redBlackNode::redBlackNode( redBlackNode& nod2 ) : nod( nod2 ) {
+    culoare = new char( nod2.getCuloare() );
 }

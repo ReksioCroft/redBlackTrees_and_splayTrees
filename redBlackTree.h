@@ -7,6 +7,8 @@
 
 
 class redBlackTree : public abstractTree {
+    static int nrInstanteCurente;
+
     redBlackNode* root;
 
     void deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat );
@@ -15,26 +17,28 @@ class redBlackTree : public abstractTree {
 
     void redBlackDeletionFix( redBlackNode* nodCurent );
 
-public:
     redBlackTree();
 
+public:
     redBlackTree( redBlackTree& tree2 );
 
-    ~redBlackTree();
+    ~redBlackTree() override;
 
-    void insert( int nr );
+    void insert( int nr ) override;
 
     void deletion( int nr );
 
-    void empty();
+    void clear() override;
 
-    bool find( int nr );
+    bool find( int nr ) override;
 
-    redBlackNode* getRoot();
+    redBlackNode* getRoot() override;
 
-    int blackHigh();
+    int blackHigh() const;
 
     redBlackTree& operator=( redBlackTree tree2 );
+
+    static redBlackTree* getInstance();
 };
 
 
