@@ -67,7 +67,7 @@ public:
 
 template < class nodType >
 void abstractTree::rotateLeft( nodType *&root, nodType *nodCurent ) {
-    nodType *nodTata = nodCurent->getTata();
+    nodType *const nodTata = nodCurent->getTata();
     if ( nodCurent->getTata() == root ) {
         nodCurent->setTata( nullptr );
         root = nodCurent;
@@ -90,7 +90,7 @@ void abstractTree::rotateLeft( nodType *&root, nodType *nodCurent ) {
 
 template < class nodType >
 void abstractTree::rotateRight( nodType *&root, nodType *nodCurent ) {
-    nodType *nodTata = nodCurent->getTata();
+    nodType *const nodTata = nodCurent->getTata();
     if ( nodCurent->getTata() == root ) {
         nodCurent->setTata( nullptr );
         root = nodCurent;
