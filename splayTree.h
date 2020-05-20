@@ -18,6 +18,8 @@ class splayTree : public abstractTree {
 
     splayTree();
 
+    static const splayTree &isOkToCallBaseConstructor( const splayTree &tree2 );
+
 public:
     splayTree( const splayTree &tree2 );
 

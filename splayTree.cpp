@@ -13,7 +13,17 @@ splayTree::splayTree() : abstractTree() {
 }
 
 
-splayTree::splayTree( const splayTree &tree2 ) : abstractTree( tree2 ) {
+splayTree *splayTree::getInstance() {
+    if ( nrInstanteCurente == abstractTree::getNrInstante() ) {
+        splayTree *tree = new splayTree;
+        return tree;
+    }
+    else
+        return nullptr;
+}
+
+
+splayTree::splayTree( const splayTree &tree2 ) : abstractTree( isOkToCallBaseConstructor( tree2 ) ) {
     nrInstanteCurente++;
     if ( tree2.root != nullptr ) {
         nod *nodNou = new nod( *tree2.root );
@@ -22,6 +32,13 @@ splayTree::splayTree( const splayTree &tree2 ) : abstractTree( tree2 ) {
     }
     else
         root = nullptr;
+}
+
+
+const splayTree &splayTree::isOkToCallBaseConstructor( const splayTree &tree2 ) {
+    if ( nrInstanteCurente != abstractTree::getNrInstante() )
+        throw std::bad_function_call();
+    return tree2;
 }
 
 
@@ -175,11 +192,3 @@ void splayTree::clear() {
 }
 
 
-splayTree *splayTree::getInstance() {
-    if ( nrInstanteCurente == abstractTree::getNrInstante() ) {
-        splayTree *tree = new splayTree;
-        return tree;
-    }
-    else
-        return nullptr;
-}

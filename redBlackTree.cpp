@@ -10,7 +10,17 @@ redBlackTree::redBlackTree() : abstractTree() {
 }
 
 
-redBlackTree::redBlackTree( const redBlackTree &tree2 ) : abstractTree( tree2 ) {
+redBlackTree *redBlackTree::getInstance() {
+    if ( nrInstanteCurente == abstractTree::getNrInstante() ) {
+        redBlackTree *tree = new redBlackTree;
+        return tree;
+    }
+    else
+        return nullptr;
+}
+
+
+redBlackTree::redBlackTree( const redBlackTree &tree2 ) : abstractTree( isOkToCallBaseConstructor( tree2 ) ) {
     nrInstanteCurente++;
     if ( tree2.root != nullptr ) {
         redBlackNode *nodNou = new redBlackNode( *tree2.root );
@@ -19,6 +29,13 @@ redBlackTree::redBlackTree( const redBlackTree &tree2 ) : abstractTree( tree2 ) 
     }
     else
         root = nullptr;
+}
+
+
+const redBlackTree &redBlackTree::isOkToCallBaseConstructor( const redBlackTree &tree2 ) {
+    if ( nrInstanteCurente != abstractTree::getNrInstante() )
+        throw std::bad_function_call();
+    return tree2;
 }
 
 
@@ -264,14 +281,4 @@ void redBlackTree::deepcopy( redBlackNode *nodNou, redBlackNode *nodCopiat ) {
 void redBlackTree::clear() {
     while ( nrNoduri > 0 )
         deletion( root->getVal() );
-}
-
-
-redBlackTree *redBlackTree::getInstance() {
-    if ( nrInstanteCurente == abstractTree::getNrInstante() ) {
-        redBlackTree *tree = new redBlackTree;
-        return tree;
-    }
-    else
-        return nullptr;
 }

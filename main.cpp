@@ -2,7 +2,6 @@
 #include "splayTree.h"
 #include "redBlackTree.h"
 #include <list>
-#include <functional>
 
 
 template < class treeType >
@@ -92,12 +91,9 @@ void solve() {
     std::cout << *tree2;
     try {
         treeType2 *s = treeType2::getInstance();
-        if ( s != nullptr ) {
-            treeType2 s2( *s );
+        if ( s != nullptr )
             throw std::logic_error( "Design-Pattern incorrect implement" );
-        }
-        else
-            throw std::bad_function_call();
+        treeType2 s2( *s );
     }
     catch ( std::logic_error &e ) {
         std::cout << e.what() << "\n";

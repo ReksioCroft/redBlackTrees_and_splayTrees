@@ -3,6 +3,7 @@
 
 
 #include <iostream>
+#include <functional>
 #include "nod.h"
 
 
@@ -25,7 +26,7 @@ protected:
 
 
     template < class nodType >
-    nodType *findNodeByValue( nodType *&root, int val, const findAuxNodeType valNodAux, nodType *&nodAux );
+    nodType *findNodeByValue( nodType *&root, int val, findAuxNodeType valNodAux, nodType *&nodAux );
 
 
     template < class nodType >

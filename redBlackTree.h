@@ -18,6 +18,9 @@ class redBlackTree : public abstractTree {
 
     redBlackTree();
 
+    static const redBlackTree &isOkToCallBaseConstructor( const redBlackTree &tree2 );
+
+
 public:
     redBlackTree( const redBlackTree &tree2 );
 
