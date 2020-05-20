@@ -17,22 +17,23 @@ protected:
         T, L, U
     };
 
+    abstractTree();
+
+    static void interval( std::ostream &output, nod *nodCurent, int lowerBound, int upperBound );
+
+    static void afis( std::ostream &output, nod *nod );
+
     template < class nodType >
     static void rotateLeft( nodType *&root, nodType *nodCurent );
-
 
     template < class nodType >
     static void rotateRight( nodType *&root, nodType *nodCurent );
 
+    template < class nodType >
+    static nodType *findNodeByValue( nodType *root, int val, findAuxNodeType valNodAux, nodType *&nodAux );
 
     template < class nodType >
-    nodType *findNodeByValue( nodType *&root, int val, findAuxNodeType valNodAux, nodType *&nodAux );
-
-
-    template < class nodType >
-    void interval( std::ostream &output, nodType *nodCurent, int lowerBound, int upperBound );
-
-    abstractTree();
+    void deletion( nodType *&root, nodType *&nodCurent, int &lastMove, nodType *&nodUltim, int nr );
 
 public:
 
@@ -40,48 +41,28 @@ public:
 
     virtual ~abstractTree() = 0;
 
+    int getNrNoduri() const;
+
+    static int getNrInstante();
+
+    static int upperBound( nod *root, int nr );
+
+    static int lowerBound( nod *root, int nr );
+
+    static void printInterval( nod *root, std::ostream &output, int lowerBound, int upperBound );
+
     virtual void insert( int nr ) = 0;
 
     virtual void clear() = 0;
 
-    template < class nodType >
-    void deletion( nodType *&root, nodType *&nodCurent, int &lastMove, nodType *&nodUltim, int nr );
-
     virtual bool find( int nr ) = 0;
-
-    template < class nodType >
-    int upperBound( nodType *root, int nr );
-
-    template < class nodType >
-    void printInterval( nodType *root, std::ostream &output, int lowerBound, int upperBound );
-
-    template < class nodType >
-    int lowerBound( nodType *root, int nr );
-
-    int getNrNoduri() const;
-
-    template < class nodType >
-    friend void afis( std::ostream &output, nodType *nod );
 
     virtual nod *getRoot() = 0;
 
-    static int getNrInstante();
+    friend std::istream &operator>>( std::istream &input, abstractTree &tree );
+
+    friend std::ostream &operator<<( std::ostream &output, abstractTree &tree );
 };
-
-
-std::istream &operator>>( std::istream &input, abstractTree &tree );
-
-std::ostream &operator<<( std::ostream &output, abstractTree &tree );
-
-
-template < class nodType >
-void afis( std::ostream &output, nodType *nod ) {
-    if ( nod->getFiu( 1 ) != nullptr )
-        afis( output, nod->getFiu( 1 ) );
-    output << nod->getVal() << " ";
-    if ( nod->getFiu( 2 ) != nullptr )
-        afis( output, nod->getFiu( 2 ) );
-}
 
 
 template < class nodType >
@@ -131,7 +112,7 @@ void abstractTree::rotateRight( nodType *&root, nodType *nodCurent ) {
 
 
 template < class nodType >
-nodType *abstractTree::findNodeByValue( nodType *&root, int val, const abstractTree::findAuxNodeType valNodAux,
+nodType *abstractTree::findNodeByValue( nodType *const root, int val, const abstractTree::findAuxNodeType valNodAux,
                                         nodType *&nodAux ) {
     nodType *nodCurent = root;
     ///valNodAux: T == tata, L == lowerBound, U == upperBound
@@ -156,17 +137,6 @@ nodType *abstractTree::findNodeByValue( nodType *&root, int val, const abstractT
             nodCurent = nodCurent->getFiu( 2 );
     }
     return nodCurent;
-}
-
-
-template < class nodType >
-void abstractTree::interval( std::ostream &output, nodType *nodCurent, int lowerBound, int upperBound ) {
-    if ( nodCurent->getFiu( 1 ) != nullptr && nodCurent->getVal() >= lowerBound )
-        interval( output, nodCurent->getFiu( 1 ), lowerBound, upperBound );
-    if ( nodCurent->getVal() >= lowerBound && nodCurent->getVal() <= upperBound )
-        output << nodCurent->getVal() << " ";
-    if ( nodCurent->getFiu( 2 ) != nullptr && nodCurent->getVal() <= upperBound )
-        interval( output, nodCurent->getFiu( 2 ), lowerBound, upperBound );
 }
 
 
@@ -248,29 +218,6 @@ void abstractTree::deletion( nodType *&root, nodType *&nodCurent, int &lastMove,
             nodCurent = nodAux;
         }
     }
-}
-
-
-template < class nodType >
-int abstractTree::upperBound( nodType *root, int nr ) {
-    nodType *upperBound;
-    findNodeByValue( root, nr, U, upperBound );
-    return upperBound->getVal();
-}
-
-
-template < class nodType >
-void abstractTree::printInterval( nodType *root, std::ostream &output, int lowerBound, int upperBound ) {
-    interval( output, root, lowerBound, upperBound );
-    output << '\n';
-}
-
-
-template < class nodType >
-int abstractTree::lowerBound( nodType *root, int nr ) {
-    nodType *lowerBound;
-    findNodeByValue( root, nr, L, lowerBound );
-    return lowerBound->getVal();
 }
 
 
