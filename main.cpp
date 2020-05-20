@@ -27,8 +27,6 @@ void abce( std::ifstream &fin, std::ofstream &fout, treeType *&tree ) {
     }
     else if ( test == 7 )
         fout << tree->getNrNoduri() << "\n";
-    //  else if ( test == 8 )
-    //    fout << tree->blackHigh() << '\n';
 }
 
 
