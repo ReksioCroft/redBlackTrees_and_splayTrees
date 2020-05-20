@@ -27,7 +27,7 @@ public:
 
     virtual ~nod();
 
-    nod& operator=( nod* nod2 );
+    //nod& operator=( nod* nod2 );
 };
 
 

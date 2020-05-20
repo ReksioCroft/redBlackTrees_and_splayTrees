@@ -6,7 +6,7 @@
 
 
 class redBlackNode : public nod {
-    char* culoare;
+    char culoare;
 public:
     explicit redBlackNode( int nr = 0 );
 
@@ -26,7 +26,7 @@ public:
 
     void setFiu( int nrFiu, redBlackNode* nodCurent );
 
-    redBlackNode& operator=( redBlackNode* nod2 );
+    //redBlackNode& operator=( redBlackNode* nod2 );
 };
 
 

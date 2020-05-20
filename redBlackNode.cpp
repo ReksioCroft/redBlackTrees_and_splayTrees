@@ -2,22 +2,22 @@
 
 
 redBlackNode::redBlackNode( int nr ) : nod( nr ) {
-    culoare = new char( 'R' );
+    culoare = 'R';
 }
 
 
 redBlackNode::~redBlackNode() {
-    delete culoare;
+    culoare = 0;
 }
 
 
 char redBlackNode::getCuloare() const {
-    return *culoare;
+    return culoare;
 }
 
 
 void redBlackNode::setCuloare( char c ) {
-    *culoare = c;
+    culoare = c;
 }
 
 
@@ -47,13 +47,13 @@ void redBlackNode::setFiu( int nrFiu, redBlackNode* nodCurent ) {
 }
 
 
-redBlackNode& redBlackNode::operator=( redBlackNode* nod2 ) {
+/*redBlackNode& redBlackNode::operator=( redBlackNode* nod2 ) {
     val = nod2->getVal();
     *culoare = nod2->getCuloare();
     return *this;
 }
-
+ */
 
 redBlackNode::redBlackNode( const redBlackNode& nod2 ) : nod( nod2 ) {
-    culoare = new char( nod2.getCuloare() );
+    culoare = nod2.getCuloare();
 }

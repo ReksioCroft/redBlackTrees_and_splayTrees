@@ -128,17 +128,14 @@ void splayTree::deletion( int nr ) {
 
 
 splayTree& splayTree::operator=( splayTree tree2 ) {
-    splayTree aux;
-    aux.root = root;
-    aux.nrNoduri = nrNoduri;
-
+    nod* aux = root;
     root = tree2.root;
-    tree2.root = aux.root;
-    aux.root = nullptr;
+    tree2.root = aux;
 
-    nrNoduri = tree2.nrNoduri;
-    tree2.nrNoduri = aux.nrNoduri;
-    aux.nrNoduri = 0;
+    nrNoduri += tree2.nrNoduri;
+    tree2.nrNoduri = nrNoduri - tree2.nrNoduri;
+    nrNoduri -= tree2.nrNoduri;
+    tree2.clear();
 
     return *this;
 }

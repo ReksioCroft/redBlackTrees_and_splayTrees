@@ -220,17 +220,14 @@ int redBlackTree::blackHigh() const {
 
 
 redBlackTree& redBlackTree::operator=( redBlackTree tree2 ) {
-    redBlackTree aux;
-    aux.root = root;
-    aux.nrNoduri = nrNoduri;
-
+    redBlackNode* aux = root;
     root = tree2.root;
-    tree2.root = aux.root;
-    aux.root = nullptr;
+    tree2.root = aux;
 
-    nrNoduri = tree2.nrNoduri;
-    tree2.nrNoduri = aux.nrNoduri;
-    aux.nrNoduri = 0;
+    nrNoduri += tree2.nrNoduri;
+    tree2.nrNoduri = nrNoduri - tree2.nrNoduri;
+    nrNoduri -= tree2.nrNoduri;
+    tree2.clear();
 
     return *this;
 }

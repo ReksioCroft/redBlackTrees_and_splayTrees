@@ -5,6 +5,60 @@
 #include <functional>
 
 
+template < class treeType >
+void abce( std::ifstream& fin, std::ofstream& fout, treeType*& tree ) {
+    int test, x, y;
+    fin >> test;
+    if ( test == 1 )
+        fin >> *tree;
+    else if ( test < 7 )
+        fin >> x;
+    if ( test == 2 )
+        tree->deletion( x );
+    else if ( test == 3 )
+        fout << tree->find( x ) << "\n";
+    else if ( test == 4 )
+        fout << tree->lowerBound( tree->getRoot(), x ) << "\n";
+    else if ( test == 5 )
+        fout << tree->upperBound( tree->getRoot(), x ) << "\n";
+    else if ( test == 6 ) {
+        fin >> y;
+        tree->printInterval( tree->getRoot(), fout, x, y );
+    }
+    else if ( test == 7 )
+        fout << tree->getNrNoduri() << "\n";
+    //  else if ( test == 8 )
+    //    fout << tree->blackHigh() << '\n';
+}
+
+
+template <>
+void abce <redBlackTree>( std::ifstream& fin, std::ofstream& fout, redBlackTree*& tree ) {
+    int test, x, y;
+    fin >> test;
+    if ( test == 1 )
+        fin >> *tree;
+    else if ( test < 7 )
+        fin >> x;
+    if ( test == 2 )
+        tree->deletion( x );
+    else if ( test == 3 )
+        fout << tree->find( x ) << "\n";
+    else if ( test == 4 )
+        fout << tree->lowerBound( tree->getRoot(), x ) << "\n";
+    else if ( test == 5 )
+        fout << tree->upperBound( tree->getRoot(), x ) << "\n";
+    else if ( test == 6 ) {
+        fin >> y;
+        tree->printInterval( tree->getRoot(), fout, x, y );
+    }
+    else if ( test == 7 )
+        fout << tree->getNrNoduri() << "\n";
+    else if ( test == 8 )
+        fout << tree->blackHigh() << '\n';
+}
+
+
 template < class treeType, class treeType2 >
 void solve() {
     std::cout << "Testul pentru " << typeid( treeType ).name() << '\n';
@@ -14,41 +68,21 @@ void solve() {
     treeType* tree = treeType::getInstance();
     trees.push_back( tree );
     try {
-        int nr = 0, test, x, y;
+        int nr = 0;
         if ( fin.fail() )
             throw std::runtime_error( "Nu exista fisierul abce.in" );
         fin >> nr;
         for ( int i = 0; i < nr; i++ ) {
-            fin >> test;
-            if ( test == 1 )
-                fin >> *tree;
-            else if ( test < 7 )
-                fin >> x;
-            if ( test == 2 )
-                tree->deletion( x );
-            else if ( test == 3 )
-                fout << tree->find( x ) << "\n";
-            else if ( test == 4 )
-                fout << tree->lowerBound( tree->getRoot(), x ) << "\n";
-            else if ( test == 5 )
-                fout << tree->upperBound( tree->getRoot(), x ) << "\n";
-            else if ( test == 6 ) {
-                fin >> y;
-                tree->printInterval( tree->getRoot(), fout, x, y );
-            }
-            else if ( test == 7 )
-                fout << tree->getNrNoduri() << "\n";
-            //  else if ( test == 8 )
-            //    fout << tree->blackHigh() << '\n';
-
+            abce( fin, fout, tree );
         }
     }
     catch ( std::runtime_error& e ) {
         std::cout << e.what() << '\n';
     }
     std::cout << *tree;
-    *tree = *tree;
+    //*tree = *tree;
     treeType tree1( *tree );
+    //tree1 = tree1;
     std::cout << tree1;
     tree->clear();
     std::cout << tree1;
