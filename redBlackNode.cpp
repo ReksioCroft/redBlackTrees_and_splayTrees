@@ -11,7 +11,7 @@ redBlackNode::~redBlackNode() {
 }
 
 
-char redBlackNode::getCuloare() const{
+char redBlackNode::getCuloare() const {
     return *culoare;
 }
 

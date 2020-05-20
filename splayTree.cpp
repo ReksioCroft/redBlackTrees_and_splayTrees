@@ -3,7 +3,9 @@
 ///https://www.youtube.com/watch?v=IBY4NtxmGg8
 #include "splayTree.h"
 
+
 int splayTree::nrInstanteCurente = 0;
+
 
 splayTree::splayTree() : abstractTree() {
     nrInstanteCurente++;
@@ -30,7 +32,7 @@ void splayTree::insert( int nr ) {
 }
 
 
-void splayTree::splayInsert( nod* nodNou ) const{
+void splayTree::splayInsert( nod* nodNou ) const {
     nod* nodCurent = root;
     int lastMove = 1;
     while ( nodCurent != nullptr ) {
@@ -144,13 +146,13 @@ splayTree& splayTree::operator=( splayTree tree2 ) {
 
 void splayTree::deepcopy( nod* nodNou, nod* nodCopiat ) {
     if ( nodCopiat->getFiu( 1 ) != nullptr ) {
-        nod* nodNou1 = new nod(*nodCopiat->getFiu(1));
+        nod* nodNou1 = new nod( *nodCopiat->getFiu( 1 ) );
         nodNou->setFiu( 1, nodNou1 );
         nodNou1->setTata( nodNou );
         deepcopy( nodNou1, nodCopiat->getFiu( 1 ) );
     }
     if ( nodCopiat->getFiu( 2 ) != nullptr ) {
-        nod* nodNou2 = new nod(*nodCopiat->getFiu(2));
+        nod* nodNou2 = new nod( *nodCopiat->getFiu( 2 ) );
         nodNou->setFiu( 2, nodNou2 );
         nodNou2->setTata( nodNou );
         deepcopy( nodNou2, nodCopiat->getFiu( 2 ) );
@@ -161,7 +163,7 @@ void splayTree::deepcopy( nod* nodNou, nod* nodCopiat ) {
 splayTree::splayTree( const splayTree& tree2 ) : abstractTree( tree2 ) {
     nrInstanteCurente++;
     if ( tree2.root != nullptr ) {
-        nod* nodNou = new nod(*tree2.root);
+        nod* nodNou = new nod( *tree2.root );
         root = nodNou;
         deepcopy( nodNou, tree2.root );
     }
@@ -177,8 +179,8 @@ void splayTree::clear() {
 
 
 splayTree* splayTree::getInstance() {
-    if( nrInstanteCurente == abstractTree::getNrInstante() ){
-        splayTree *tree = new splayTree;
+    if ( nrInstanteCurente == abstractTree::getNrInstante() ) {
+        splayTree* tree = new splayTree;
         return tree;
     }
     else

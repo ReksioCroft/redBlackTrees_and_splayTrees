@@ -1,7 +1,9 @@
 #include "abstractTree.h"
 #include "splayTree.h"
 
+
 int abstractTree::nrInstante = 0;
+
 
 abstractTree::abstractTree() {
     nrInstante++;

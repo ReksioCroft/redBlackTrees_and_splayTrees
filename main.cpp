@@ -77,9 +77,9 @@ void solve() {
         delete *( trees.begin() );
         trees.pop_front();
     }
+    std::cout << "\n";
     fin.close();
     fout.close();
-    std::cout << "\n";
 }
 
 
