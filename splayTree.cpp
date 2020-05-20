@@ -13,6 +13,32 @@ splayTree::splayTree() : abstractTree() {
 }
 
 
+splayTree::splayTree( const splayTree &tree2 ) : abstractTree( tree2 ) {
+    nrInstanteCurente++;
+    if ( tree2.root != nullptr ) {
+        nod *nodNou = new nod( *tree2.root );
+        root = nodNou;
+        deepcopy( nodNou, tree2.root );
+    }
+    else
+        root = nullptr;
+}
+
+
+splayTree &splayTree::operator=( splayTree tree2 ) {
+    nod *aux = root;
+    root = tree2.root;
+    tree2.root = aux;
+
+    nrNoduri += tree2.nrNoduri;
+    tree2.nrNoduri = nrNoduri - tree2.nrNoduri;
+    nrNoduri -= tree2.nrNoduri;
+    tree2.clear();
+
+    return *this;
+}
+
+
 splayTree::~splayTree() {
     nrInstanteCurente--;
     clear();
@@ -20,7 +46,7 @@ splayTree::~splayTree() {
 
 
 void splayTree::insert( int nr ) {
-    nod* nodNou = new nod( nr );
+    nod *nodNou = new nod( nr );
     if ( root == nullptr ) {
         root = nodNou;
     }
@@ -32,8 +58,8 @@ void splayTree::insert( int nr ) {
 }
 
 
-void splayTree::splayInsert( nod* nodNou ) const {
-    nod* nodCurent = root;
+void splayTree::splayInsert( nod *nodNou ) const {
+    nod *nodCurent = root;
     int lastMove = 1;
     while ( nodCurent != nullptr ) {
         nodNou->setTata( nodCurent );
@@ -50,12 +76,12 @@ void splayTree::splayInsert( nod* nodNou ) const {
 }
 
 
-nod* splayTree::getRoot() {
+nod *splayTree::getRoot() {
     return root;
 }
 
 
-void splayTree::splay( nod* nodCurent ) {
+void splayTree::splay( nod *nodCurent ) {
     if ( nodCurent->getTata() == root ) {
         if ( nodCurent->getTata()->getFiu( 1 ) == nodCurent ) {
             ///daca sunt fiul din stanga al radacinii => "Zig Rotation"
@@ -68,7 +94,7 @@ void splayTree::splay( nod* nodCurent ) {
         }
     }
     else if ( nodCurent != root ) { ///daca mai continui
-        nod* nodTata = nodCurent->getTata();
+        nod *nodTata = nodCurent->getTata();
         if ( nodCurent->getTata()->getFiu( 1 ) == nodCurent ) {
             ///sunt un fiu stang => Zig-zig sau Zig-zag
             if ( nodTata->getTata()->getFiu( 1 ) == nodTata ) {
@@ -103,8 +129,8 @@ void splayTree::splay( nod* nodCurent ) {
 bool splayTree::find( int nr ) {
     if ( root == nullptr )
         return false;
-    nod* nodUltim;
-    nod* nodCautat = findNodeByValue( root, nr, T, nodUltim );
+    nod *nodUltim;
+    nod *nodCautat = findNodeByValue( root, nr, T, nodUltim );
     if ( nodCautat == nullptr ) {
         splay( nodUltim );
         return false;
@@ -117,8 +143,8 @@ bool splayTree::find( int nr ) {
 
 
 void splayTree::deletion( int nr ) {
-    nod* nodSters;
-    nod* nodUltim;
+    nod *nodSters;
+    nod *nodUltim;
     int lastMove;
     abstractTree::deletion( root, nodSters, lastMove, nodUltim, nr );
     delete nodSters;
@@ -127,45 +153,19 @@ void splayTree::deletion( int nr ) {
 }
 
 
-splayTree& splayTree::operator=( splayTree tree2 ) {
-    nod* aux = root;
-    root = tree2.root;
-    tree2.root = aux;
-
-    nrNoduri += tree2.nrNoduri;
-    tree2.nrNoduri = nrNoduri - tree2.nrNoduri;
-    nrNoduri -= tree2.nrNoduri;
-    tree2.clear();
-
-    return *this;
-}
-
-
-void splayTree::deepcopy( nod* nodNou, nod* nodCopiat ) {
+void splayTree::deepcopy( nod *nodNou, nod *nodCopiat ) {
     if ( nodCopiat->getFiu( 1 ) != nullptr ) {
-        nod* nodNou1 = new nod( *nodCopiat->getFiu( 1 ) );
+        nod *nodNou1 = new nod( *nodCopiat->getFiu( 1 ) );
         nodNou->setFiu( 1, nodNou1 );
         nodNou1->setTata( nodNou );
         deepcopy( nodNou1, nodCopiat->getFiu( 1 ) );
     }
     if ( nodCopiat->getFiu( 2 ) != nullptr ) {
-        nod* nodNou2 = new nod( *nodCopiat->getFiu( 2 ) );
+        nod *nodNou2 = new nod( *nodCopiat->getFiu( 2 ) );
         nodNou->setFiu( 2, nodNou2 );
         nodNou2->setTata( nodNou );
         deepcopy( nodNou2, nodCopiat->getFiu( 2 ) );
     }
-}
-
-
-splayTree::splayTree( const splayTree& tree2 ) : abstractTree( tree2 ) {
-    nrInstanteCurente++;
-    if ( tree2.root != nullptr ) {
-        nod* nodNou = new nod( *tree2.root );
-        root = nodNou;
-        deepcopy( nodNou, tree2.root );
-    }
-    else
-        root = nullptr;
 }
 
 
@@ -175,9 +175,9 @@ void splayTree::clear() {
 }
 
 
-splayTree* splayTree::getInstance() {
+splayTree *splayTree::getInstance() {
     if ( nrInstanteCurente == abstractTree::getNrInstante() ) {
-        splayTree* tree = new splayTree;
+        splayTree *tree = new splayTree;
         return tree;
     }
     else

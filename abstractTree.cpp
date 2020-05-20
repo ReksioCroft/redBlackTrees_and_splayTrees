@@ -11,7 +11,7 @@ abstractTree::abstractTree() {
 }
 
 
-abstractTree::abstractTree( const abstractTree& tree2 ) {
+abstractTree::abstractTree( const abstractTree &tree2 ) {
     nrInstante++;
     nrNoduri = tree2.nrNoduri;
 }
@@ -28,7 +28,7 @@ int abstractTree::getNrNoduri() const {
 }
 
 
-std::istream& operator>>( std::istream& input, abstractTree& tree ) {
+std::istream &operator>>( std::istream &input, abstractTree &tree ) {
     int nr;
     input >> nr;
     tree.insert( nr );
@@ -36,7 +36,7 @@ std::istream& operator>>( std::istream& input, abstractTree& tree ) {
 }
 
 
-std::ostream& operator<<( std::ostream& output, abstractTree& tree ) {
+std::ostream &operator<<( std::ostream &output, abstractTree &tree ) {
     if ( tree.getRoot() != nullptr ) {
         afis( output, tree.getRoot() );
         output << "\n";

@@ -10,7 +10,7 @@ class redBlackNode : public nod {
 public:
     explicit redBlackNode( int nr = 0 );
 
-    redBlackNode( const redBlackNode& nod2 );
+    redBlackNode( const redBlackNode &nod2 );
 
     ~redBlackNode() override;
 
@@ -18,15 +18,15 @@ public:
 
     void setCuloare( char c );
 
-    redBlackNode* getTata() override;
+    redBlackNode *getTata() override;
 
-    void setTata( redBlackNode* nodCurent );
+    void setTata( redBlackNode *nodCurent );
 
-    redBlackNode* getFiu( int nrFiu ) override;
+    redBlackNode *getFiu( int nrFiu ) override;
 
-    void setFiu( int nrFiu, redBlackNode* nodCurent );
+    void setFiu( int nrFiu, redBlackNode *nodCurent );
 
-    //redBlackNode& operator=( redBlackNode* nod2 );
+    redBlackNode &operator=( const redBlackNode &noCopyNode ) = delete;
 };
 
 

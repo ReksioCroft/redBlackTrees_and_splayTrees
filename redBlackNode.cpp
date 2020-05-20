@@ -6,6 +6,11 @@ redBlackNode::redBlackNode( int nr ) : nod( nr ) {
 }
 
 
+redBlackNode::redBlackNode( const redBlackNode &nod2 ) : nod( nod2 ) {
+    culoare = nod2.getCuloare();
+}
+
+
 redBlackNode::~redBlackNode() {
     culoare = 0;
 }
@@ -21,39 +26,28 @@ void redBlackNode::setCuloare( char c ) {
 }
 
 
-redBlackNode* redBlackNode::getTata() {
-    return dynamic_cast<redBlackNode*>(tata);
+redBlackNode *redBlackNode::getTata() {
+    return dynamic_cast<redBlackNode *>(tata);
 }
 
 
-void redBlackNode::setTata( redBlackNode* nodCurent ) {
+void redBlackNode::setTata( redBlackNode *nodCurent ) {
     tata = nodCurent;
 }
 
 
-redBlackNode* redBlackNode::getFiu( int nrFiu ) {
+redBlackNode *redBlackNode::getFiu( int nrFiu ) {
     if ( nrFiu == 1 )
-        return dynamic_cast<redBlackNode*>(fiu1);
+        return dynamic_cast<redBlackNode *>(fiu1);
     else
-        return dynamic_cast<redBlackNode*>(fiu2);
+        return dynamic_cast<redBlackNode *>(fiu2);
 }
 
 
-void redBlackNode::setFiu( int nrFiu, redBlackNode* nodCurent ) {
+void redBlackNode::setFiu( int nrFiu, redBlackNode *nodCurent ) {
     if ( nrFiu == 1 )
         fiu1 = nodCurent;
     else
         fiu2 = nodCurent;
 }
 
-
-/*redBlackNode& redBlackNode::operator=( redBlackNode* nod2 ) {
-    val = nod2->getVal();
-    *culoare = nod2->getCuloare();
-    return *this;
-}
- */
-
-redBlackNode::redBlackNode( const redBlackNode& nod2 ) : nod( nod2 ) {
-    culoare = nod2.getCuloare();
-}

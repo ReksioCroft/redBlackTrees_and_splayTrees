@@ -6,7 +6,7 @@
 
 
 template < class treeType >
-void abce( std::ifstream& fin, std::ofstream& fout, treeType*& tree ) {
+void abce( std::ifstream &fin, std::ofstream &fout, treeType *&tree ) {
     int test, x, y;
     fin >> test;
     if ( test == 1 )
@@ -33,7 +33,7 @@ void abce( std::ifstream& fin, std::ofstream& fout, treeType*& tree ) {
 
 
 template <>
-void abce <redBlackTree>( std::ifstream& fin, std::ofstream& fout, redBlackTree*& tree ) {
+void abce <redBlackTree>( std::ifstream &fin, std::ofstream &fout, redBlackTree *&tree ) {
     int test, x, y;
     fin >> test;
     if ( test == 1 )
@@ -64,8 +64,8 @@ void solve() {
     std::cout << "Testul pentru " << typeid( treeType ).name() << '\n';
     std::ifstream fin( "abce.in" );
     std::ofstream fout( "abce.out" );
-    std::list <treeType*> trees;
-    treeType* tree = treeType::getInstance();
+    std::list <treeType *> trees;
+    treeType *tree = treeType::getInstance();
     trees.push_back( tree );
     try {
         int nr = 0;
@@ -76,7 +76,7 @@ void solve() {
             abce( fin, fout, tree );
         }
     }
-    catch ( std::runtime_error& e ) {
+    catch ( std::runtime_error &e ) {
         std::cout << e.what() << '\n';
     }
     std::cout << *tree;
@@ -87,13 +87,13 @@ void solve() {
     tree->clear();
     std::cout << tree1;
     std::cout << *tree;
-    treeType* tree2 = treeType::getInstance();
+    treeType *tree2 = treeType::getInstance();
     trees.push_back( tree2 );
     *tree2 = tree1;
     tree1.clear();
     std::cout << *tree2;
     try {
-        treeType2* s = treeType2::getInstance();
+        treeType2 *s = treeType2::getInstance();
         if ( s != nullptr ) {
             treeType2 s2( *s );
             throw std::logic_error( "Design-Pattern incorrect implement" );
@@ -101,10 +101,10 @@ void solve() {
         else
             throw std::bad_function_call();
     }
-    catch ( std::logic_error& e ) {
+    catch ( std::logic_error &e ) {
         std::cout << e.what() << "\n";
     }
-    catch ( std::bad_function_call& e ) {
+    catch ( std::bad_function_call &e ) {
         std::cout << e.what() << '\n';
     }
     while ( trees.empty() == false ) {

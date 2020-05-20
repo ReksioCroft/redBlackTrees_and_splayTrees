@@ -8,19 +8,20 @@
 
 class redBlackTree : public abstractTree {
     static int nrInstanteCurente;
+    redBlackNode *root;
 
-    redBlackNode* root;
+    void deepcopy( redBlackNode *nodNou, redBlackNode *nodCopiat );
 
-    void deepcopy( redBlackNode* nodNou, redBlackNode* nodCopiat );
+    void redBlackInsertionFix( redBlackNode *nodCurent );
 
-    void redBlackInsertionFix( redBlackNode* nodCurent );
-
-    void redBlackDeletionFix( redBlackNode* nodCurent );
+    void redBlackDeletionFix( redBlackNode *nodCurent );
 
     redBlackTree();
 
 public:
-    redBlackTree( const redBlackTree& tree2 );
+    redBlackTree( const redBlackTree &tree2 );
+
+    static redBlackTree *getInstance();
 
     ~redBlackTree() override;
 
@@ -32,13 +33,11 @@ public:
 
     bool find( int nr ) override;
 
-    redBlackNode* getRoot() override;
+    redBlackNode *getRoot() override;
 
     int blackHigh() const;
 
-    redBlackTree& operator=( redBlackTree tree2 );
-
-    static redBlackTree* getInstance();
+    redBlackTree &operator=( redBlackTree tree2 );
 };
 
 
