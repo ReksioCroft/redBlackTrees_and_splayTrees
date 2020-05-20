@@ -20,11 +20,7 @@ public:
 
     redBlackNode *getTata() override;
 
-    void setTata( redBlackNode *nodCurent );
-
     redBlackNode *getFiu( int nrFiu ) override;
-
-    void setFiu( int nrFiu, redBlackNode *nodCurent );
 
     redBlackNode &operator=( const redBlackNode &noCopyNode ) = delete;
 };
